@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "796581744004",
+    "firebase_url": "https://pilgrim-16e7a.firebaseio.com",
+    "project_id": "pilgrim-16e7a",
+    "storage_bucket": "pilgrim-16e7a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:796581744004:android:3528af49b182ad0fe221d1",
+        "android_client_info": {
+          "package_name": "com.example.pilgrim"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "796581744004-dj0sh2nbuh8u5djjtnglara41tuqalic.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pilgrim",
+            "certificate_hash": "e02efbe7825f9b892de413ecf3bb0e3062903712"
+          }
+        },
+        {
+          "client_id": "796581744004-c7nd3s0po8lqmagvfvgfokl6ija8lcld.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbS2UYUBiEc9CvWimqb2eJuDBlrsBe6DI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "796581744004-c7nd3s0po8lqmagvfvgfokl6ija8lcld.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
