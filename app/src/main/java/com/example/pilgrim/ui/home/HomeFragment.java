@@ -26,7 +26,7 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.txt_noti);
+
         ImageButton imgbtn_survey=root.findViewById(R.id.imgbtn_survey);
         ImageButton imgbtn_map=root.findViewById(R.id.imgbtn_map);
         ImageButton imgbtn_mannagerMode=root.findViewById(R.id.imgbtn_manager);
