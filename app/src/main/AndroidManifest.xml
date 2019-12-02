@@ -22,7 +22,7 @@
         <activity android:name=".Survey"></activity>
         <activity android:name=".ManagerMode" />
         <activity android:name=".IdOrPwdSearch" />
-        <activity android:name=".SignWelcom" />
+        <activity android:name=".SignWelcom" android:theme="@style/Theme.AppCompat.Dialog"/>
         <activity android:name=".MemberShip" />
         <activity android:name=".Intro">
             <intent-filter>
