@@ -2,6 +2,7 @@ package com.example.pilgrim;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -56,6 +57,7 @@ public class IdOrPwdSearch extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.id_or_pwd_search);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//정방향 세로로 완전히 고정,회전불가
         String[] PERMISSIONS ={
                 Manifest.permission.SEND_SMS,
                 Manifest.permission.RECEIVE_SMS,

@@ -16,22 +16,16 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            app:contentInsetStart="15dp"
+            app:contentInsetStartWithNavigation="72dp"
             app:popupTheme="@style/Base.AlertDialog.AppCompat.Light"
-            app:title="pilgrim"
+            app:title="Pilgrim"
             app:titleMargin="4dp"
-            app:titleMarginStart="125dp"
+            app:titleMarginStart="120dp"
             app:titleTextColor="@android:color/background_light" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_main" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

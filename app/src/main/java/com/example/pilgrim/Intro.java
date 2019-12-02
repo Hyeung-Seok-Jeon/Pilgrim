@@ -3,6 +3,7 @@ package com.example.pilgrim;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -27,7 +28,7 @@ public class Intro extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intro);
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//정방향 세로로 완전히 고정,회전불가
         handler = new Handler();
         handler.postDelayed(runnable, 1500);
 

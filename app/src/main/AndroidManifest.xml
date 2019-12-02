@@ -20,7 +20,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".Survey"></activity>
-        <activity android:name=".Main2Activity" />
         <activity android:name=".ManagerMode" />
         <activity android:name=".IdOrPwdSearch" />
         <activity android:name=".SignWelcom" />

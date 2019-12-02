@@ -7,10 +7,10 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">pilgrim</string>
-    <string name="menu_gallery">pilgrim</string>
-    <string name="menu_slideshow">pilgrim</string>
-    <string name="menu_tools">pilgrim</string>
-    <string name="menu_share">pilgrim</string>
-    <string name="menu_send">pilgrim</string>
+    <string name="menu_home">Pilgrim</string>
+    <string name="menu_gallery">Pilgrim</string>
+    <string name="menu_slideshow">Pilgrim</string>
+    <string name="menu_tools">Pilgrim</string>
+    <string name="menu_share">Pilgrim</string>
+    <string name="menu_send">Pilgrim</string>
 </resources>

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,79 +21,72 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.pilgrim.ImageDTO;
 import com.example.pilgrim.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class GalleryFragment extends Fragment {
-    private Integer[] mThumbIds={R.drawable.peng1,R.drawable.peng2  };
-    ArrayList<String> galleryList=new ArrayList<String>();
+    private Integer[] mThumbIds={R.drawable.peng1,R.drawable.peng2};
+    private List<ImageDTO> galleryListUri=new ArrayList<>();
+    private FirebaseDatabase database;
     Button btn_prev,btn_next;
     int i,count=0;
     ImageView imageView;
     String galleryUri;
     TextView test;
+    SharedPreferences sharedPreferences;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_gallery2, container, false);
-        btn_prev=root.findViewById(R.id.btn_prev);
-        btn_next=root.findViewById(R.id.btn_next);
-        imageView=root.findViewById(R.id.img_gallery);
-        test=root.findViewById(R.id.textView3);
-        Bundle extra=getArguments();
+        View root = inflater.inflate(R.layout.fragment_gallery3, container, false);
+        database=FirebaseDatabase.getInstance();
+        RecyclerView recyclerView=root.findViewById(R.id.recycierview);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        final GalleryRecyclerViewAdapter galleryRecyclerViewAdapter=new GalleryRecyclerViewAdapter();
+        recyclerView.setAdapter(galleryRecyclerViewAdapter);
+
+        database.getReference("GalleryUris").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                galleryListUri.clear();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    ImageDTO imageDTO=snapshot.getValue(ImageDTO.class);
+                     galleryListUri.add(imageDTO);
+                }
+                galleryRecyclerViewAdapter.notifyDataSetChanged();//새로고침
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+      /*  Bundle extra=getArguments();
         if(extra!=null){
 
            galleryUri=extra.getString("uri");
         }
-        test.setText(galleryUri);
-        try {
-            if(galleryUri!=null) {
-                galleryList.add(galleryUri);
-                i=galleryList.size();
-                count=i-1;
-                Glide.with(getActivity()).load(galleryList.get(0)).into(imageView);
-            }
-            else
-                Toast.makeText(getActivity(), "업로드 이미지가 하나도 없습니다.", Toast.LENGTH_SHORT).show();
-        }catch (NullPointerException e){
-
-        }
+        test.setText(galleryUri);*/
 
 
-        btn_prev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    if(count>-1) {
-                        count--;
-                        Glide.with(getActivity()).load(galleryList.get(count)).into(imageView);
-                    }
-                    else {
-                        Toast.makeText(getActivity(), "처음입니다.", Toast.LENGTH_SHORT).show();
-                        count=0;
-                    }
-                }catch(NullPointerException e){
 
-                }
-
-            }
-        });
-        btn_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(count+1>=galleryList.size()){
-                    Toast.makeText(getActivity(), "마지막입니다.", Toast.LENGTH_SHORT).show();
-                }else {
-                    count++;
-                    Glide.with(getActivity()).load(galleryList.get(count)).into(imageView);
-
-                }
-
-            }
-        });
        /* GridView gridView=root.findViewById(R.id.gridview);
         gridView.setAdapter(new GalleryAdapter(getContext()));
 
@@ -115,7 +109,34 @@ public class GalleryFragment extends Fragment {
 
 return root;
     }
-    public class GalleryAdapter extends BaseAdapter {
+    class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+
+        @NonNull
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_gallery,parent,false);
+            return new CustomViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+            Glide.with(holder.itemView.getContext()).load(galleryListUri.get(position).imageUrI).into(((CustomViewHolder)holder).imageView);
+        }
+
+        @Override
+        public int getItemCount() {
+            return galleryListUri.size();
+        }
+        private class CustomViewHolder extends RecyclerView.ViewHolder{
+            private ImageView imageView;
+            public CustomViewHolder(View view){
+                super(view);
+                imageView=view.findViewById(R.id.item_ImageView);
+
+            }
+        }
+    }
+    /*public class GalleryAdapter extends BaseAdapter {
         private Context mContext;
 
         public GalleryAdapter(Context c){
@@ -148,5 +169,5 @@ return root;
         }
 
 
-    }
+    }*/
 }

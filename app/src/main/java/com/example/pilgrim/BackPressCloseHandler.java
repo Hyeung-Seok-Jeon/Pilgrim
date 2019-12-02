@@ -24,8 +24,8 @@ public class BackPressCloseHandler
         if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
             toast.cancel();
 
-            Intent t = new Intent(activity, com.example.pilgrim.MainActivity.class);
-            activity.startActivity(t);
+            Intent intent = new Intent(activity,Intro.class);
+            activity.startActivity(intent);
 
             activity.moveTaskToBack(true);
             activity.finish();
