@@ -39,15 +39,9 @@ import java.util.List;
 import static android.content.Context.MODE_PRIVATE;
 
 public class GalleryFragment extends Fragment {
-    private Integer[] mThumbIds={R.drawable.peng1,R.drawable.peng2};
+
     private List<ImageDTO> galleryListUri=new ArrayList<>();
     private FirebaseDatabase database;
-    Button btn_prev,btn_next;
-    int i,count=0;
-    ImageView imageView;
-    String galleryUri;
-    TextView test;
-    SharedPreferences sharedPreferences;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
