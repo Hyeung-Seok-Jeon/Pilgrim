@@ -29,7 +29,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class MemberShip extends AppCompatActivity {
-    private static String IP_ADDRESS = "192.168.219.102";
+    private static String IP_ADDRESS = "www.next-table.com";
     private static String TAG = "phptest";
     String[] items = {"월", "01", "02", "03", "04", "05", "06", "07","08","09","10","11","12"};
     private EditText m_edit_id,m_edit_pword,m_edit_name,m_edit_pwordCheck,m_edit_year,m_edit_day,m_edit_phone;
@@ -82,7 +82,7 @@ public class MemberShip extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String id = m_edit_id.getText().toString();
-                IDChk idChk = new IDChk(id,"http://" + IP_ADDRESS + "/Myproject/idChk.php",MemberShip.this);
+                IDChk idChk = new IDChk(id,"http://" + IP_ADDRESS + "/pilgrimproject/idChk.php",MemberShip.this);
                 idChk.execute();
             }
         });
@@ -109,7 +109,7 @@ public class MemberShip extends AppCompatActivity {
                 if (pword.equals(pwordCheck))
                 {
                     InsertData task = new InsertData();
-                    task.execute("http://" + IP_ADDRESS + "/Myproject/insert.php", name, id, pword, phone, Birth, gender);
+                    task.execute("http://" + IP_ADDRESS + "/pilgrimproject/insert.php", name, id, pword, phone, Birth, gender);
                 }
                 else
                 {
