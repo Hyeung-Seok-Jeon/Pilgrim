@@ -77,7 +77,7 @@ public class ManagerMode extends AppCompatActivity {
     private FirebaseStorage storage;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
-
+    //test
     public static boolean hasPermissions(Context context, String... permissions) {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
             for (String permission : permissions) {
