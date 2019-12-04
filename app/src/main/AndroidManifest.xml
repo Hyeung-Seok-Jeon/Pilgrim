@@ -20,16 +20,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
+        <activity android:name=".WorkService.IdOkActivity"></activity>
+        <activity android:name=".WorkService.FcmSendPushTest" />
+
         <service
-            android:name=".MyFBMessageService"
+            android:name=".WorkService.MyFBMessageService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
-
 
         <activity android:name=".Survey" />
         <activity android:name=".ManagerMode" />

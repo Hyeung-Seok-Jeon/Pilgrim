@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 1초동안, 투명도 100% ~ 50%로 2번 깜빡거리는 애니메이션 (반복모드 = reverse(왔다갔다) !-->
+
+    <alpha
+
+        android:duration="1000"
+        android:fromAlpha="1.0"
+        android:repeatCount="infinite"
+        android:repeatMode="reverse"
+        android:toAlpha="0.5" />
+
+</set>

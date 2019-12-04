@@ -14,6 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.pilgrim.WorkService.FcmSendPushTest;
+import com.example.pilgrim.WorkService.IdOkActivity;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -197,6 +200,16 @@ public class login extends AppCompatActivity {
         }
 
 
+    }
+
+    public void dumpBtn(View v){
+        Intent intent = new Intent(this,IdOkActivity.class);
+        startActivity(intent);
+    }
+
+    public void Start_SendActivity(View v){
+        Intent intent = new Intent(this, FcmSendPushTest.class);
+        startActivity(intent);
     }
 
 }

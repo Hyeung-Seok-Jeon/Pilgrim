@@ -16,4 +16,6 @@
     <string name="sendresult">제출</string>
     <string name="reset">초기화</string>
     <string name="callsurvey">불러오기</string>
+
+    <string name="fcm_test">fcm_test</string>
 </resources>
