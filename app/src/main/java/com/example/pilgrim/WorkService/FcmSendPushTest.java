@@ -66,6 +66,7 @@ public class FcmSendPushTest extends AppCompatActivity {
             JSONArray idArray = new JSONArray();
 
             idArray.put(0, regId);
+//            idArray.put(1,regId);
             requestData.put("registration_ids", idArray);
         } catch (Exception e) {
             e.printStackTrace();

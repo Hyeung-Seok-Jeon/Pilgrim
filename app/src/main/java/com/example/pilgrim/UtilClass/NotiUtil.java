@@ -41,9 +41,10 @@ public class NotiUtil extends Notification {
 
         Intent showGoIntent = new Intent(context, SurveyActivity.class);
         PendingIntent showGoPendingIntent = PendingIntent.getActivity(context, 0, showGoIntent, 0);
-        showGoIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                | Intent.FLAG_ACTIVITY_CLEAR_TOP
-                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+//        showGoIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+//                | Intent.FLAG_ACTIVITY_CLEAR_TOP
+//                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default");
 

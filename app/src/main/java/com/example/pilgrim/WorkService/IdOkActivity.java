@@ -28,7 +28,7 @@ public class IdOkActivity extends AppCompatActivity {
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this, new OnSuccessListener<InstanceIdResult>() {
             @Override
-            public void onSuccess(InstanceIdResult result) {
+            public void onSuccess(InstanceIdResult result) { // Intro onCreate에 동일 코드 있음, TAG명 FCM_TEST로 확인
                 String newToken = result.getToken();
 
                 println("등록 id : " + newToken);

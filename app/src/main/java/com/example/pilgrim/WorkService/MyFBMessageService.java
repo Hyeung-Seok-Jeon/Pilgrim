@@ -18,10 +18,14 @@ import androidx.annotation.NonNull;
 
 import com.example.pilgrim.R;
 import com.example.pilgrim.UtilClass.NotiUtil;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
+import java.util.concurrent.Executor;
 
 public class MyFBMessageService extends FirebaseMessagingService {
 
@@ -35,18 +39,18 @@ public class MyFBMessageService extends FirebaseMessagingService {
         String contents = data.get("contents");
 
         new NotiUtil(getApplicationContext(),contents);
-
     }
 
-
-
-
-
-    @Override
-    public void onNewToken(@NonNull String s) {
-        super.onNewToken(s);
-        //여기에 IdOkActivity 코드 쓰기
-    }
+//    @Override
+//    public void onNewToken(@NonNull final String newToken) {
+//        super.onNewToken(newToken);
+//        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener((Executor) this, new OnSuccessListener<InstanceIdResult>() {
+//            @Override
+//            public void onSuccess(InstanceIdResult instanceIdResult) {
+//                Log.d("FCM_TEST","onNewToken : "+newToken);
+//            }
+//        });
+//    }
 }
 
 

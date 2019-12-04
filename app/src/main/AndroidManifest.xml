@@ -32,6 +32,7 @@
             </intent-filter>
         </service>
 
+        <activity android:name=".WorkService.SurveyActivity"/>
         <activity android:name=".Survey" />
         <activity android:name=".ManagerMode" />
         <activity android:name=".IdOrPwdSearch" />

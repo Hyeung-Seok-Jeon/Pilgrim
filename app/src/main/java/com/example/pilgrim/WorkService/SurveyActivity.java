@@ -7,6 +7,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
@@ -47,22 +48,26 @@ public class SurveyActivity extends AppCompatActivity {
     }
 
     public void onSurvey_Enrollment(View v) {
-        timerThread.interrupt();
-        TextView timeResultText = findViewById(R.id.Time_OutputTextView);
-        ImageView clock_img = findViewById(R.id.watch_img);
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.effect_rotate_right);
-        clock_img.startAnimation(animation);
-        animation = AnimationUtils.loadAnimation(this, R.anim.effect_alpha_sparkle);
-        timeResultText.startAnimation(animation);
+        if (timerThread != null) {
+            timerThread.interrupt();
+            TextView timeResultText = findViewById(R.id.Time_OutputTextView);
+            ImageView clock_img = findViewById(R.id.watch_img);
+            Animation animation = AnimationUtils.loadAnimation(this, R.anim.effect_rotate_right);
+            clock_img.startAnimation(animation);
+            animation = AnimationUtils.loadAnimation(this, R.anim.effect_alpha_sparkle);
+            timeResultText.startAnimation(animation);
 
-        String parse_date = timeResultText.getText() + "";
-        String parsed_data[] = parse_date.split("[:]");
-        // 문자열 파싱
-        //        String parsed_date = parse_date.replaceAll("[^0-9]","");
+            String parse_date = timeResultText.getText() + "";
+            String parsed_data[] = parse_date.split("[:]");
+            // 문자열 파싱
+            //        String parsed_date = parse_date.replaceAll("[^0-9]","");
 //        myApplication.setmTime(parsed_date[0]);
 //        myApplication.setsTime(parsed_date[1]);
-        timeResultText.setText(parsed_data[0] + "분," + parsed_data[1] + " 초");
-        new MBoxFunUtil(this, parsed_data);
+            timeResultText.setText(parsed_data[0] + "분," + parsed_data[1] + " 초");
+            new MBoxFunUtil(this, parsed_data);
+        } else {
+            Toast.makeText(this, "진행중인 설문조사가 없습니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void onCreateSurvey(View v) {
