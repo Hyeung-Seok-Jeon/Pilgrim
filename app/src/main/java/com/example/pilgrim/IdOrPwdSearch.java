@@ -92,7 +92,7 @@ public class IdOrPwdSearch extends AppCompatActivity {
                 {
                     sPhone=IdShPhone.getText().toString();
                     param = "u_phone=" + sPhone +"";
-                    IpAddress="http://192.168.0.81/Myproject/find_id.php";
+                    IpAddress="http://www.next-table.com/pilgrimproject/find_id.php";
                 }catch(NullPointerException e){
 
                 }
@@ -113,7 +113,7 @@ public class IdOrPwdSearch extends AppCompatActivity {
                     sId=PwdShId.getText().toString();
                     sPhone=PwdShPhone.getText().toString();
                     param = "u_id=" + sId +"&u_phone="+sPhone+"";
-                    IpAddress="http://192.168.0.81/Myproject/find_pwd.php";
+                    IpAddress="http://www.next-table.com/pilgrimproject/find_pwd.php";
                 }catch(NullPointerException e){
 
                 }

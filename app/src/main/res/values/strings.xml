@@ -13,4 +13,7 @@
     <string name="menu_tools">Pilgrim</string>
     <string name="menu_share">Pilgrim</string>
     <string name="menu_send">Pilgrim</string>
+    <string name="sendresult">제출</string>
+    <string name="reset">초기화</string>
+    <string name="callsurvey">불러오기</string>
 </resources>

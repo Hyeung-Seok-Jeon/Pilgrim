@@ -29,13 +29,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class MemberShip extends AppCompatActivity {
-    private static String IP_ADDRESS = "192.168.0.81";
+    private static String IP_ADDRESS = "www.next-table.com";
     private static String TAG = "phptest";
     String[] items = {"월", "01", "02", "03", "04", "05", "06", "07","08","09","10","11","12"};
     private EditText m_edit_id,m_edit_pword,m_edit_name,m_edit_pwordCheck,m_edit_year,m_edit_day,m_edit_phone;
     private Spinner spinner;
     String spinnerName;
-    Button joinbtn;
+    Button joinbtn,btnDupp;
     RadioButton m_radio_male,m_radio_female;
     String gender;
     TextView mTextViewResult,textTest;
@@ -45,6 +45,7 @@ public class MemberShip extends AppCompatActivity {
         setContentView(R.layout.member_ship);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//정방향 세로로 완전히 고정,회전불가
         textTest=findViewById(R.id.m_id);
+        findId();
         try {
             Intent intent=getIntent();
             String str=intent.getExtras().getString("test");
@@ -55,17 +56,7 @@ public class MemberShip extends AppCompatActivity {
 
 
         //비밀번호 암호화
-        m_edit_id = findViewById(R.id.m_edit_id);
-        m_edit_pword = findViewById(R.id.m_edit_pwd);
-        m_edit_pwordCheck = findViewById(R.id.m_edit_pwdcheck);
-        m_edit_year = findViewById(R.id.m_edit_year);
-        m_edit_day = findViewById(R.id.m_edit_day);
-        m_edit_name = findViewById(R.id.m_edit_name);
-        m_edit_phone = findViewById(R.id.m_edit_phone);
-        m_radio_male = findViewById(R.id.m_rb_male);
-        m_radio_female = findViewById(R.id.m_rb_female);
-        joinbtn = findViewById(R.id.btn_sign);
-        spinner = findViewById(R.id.m_spinner_month);
+
         m_edit_pword.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
         m_edit_pword.setTransformationMethod(PasswordTransformationMethod.getInstance());
         m_edit_pwordCheck.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -85,6 +76,14 @@ public class MemberShip extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
+        btnDupp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = m_edit_id.getText().toString();
+                IDChk idChk = new IDChk(id,"http://" + IP_ADDRESS + "/pilgrimproject/idChk.php",MemberShip.this);
+                idChk.execute();
             }
         });
 
@@ -110,7 +109,7 @@ public class MemberShip extends AppCompatActivity {
                 if (pword.equals(pwordCheck))
                 {
                     InsertData task = new InsertData();
-                    task.execute("http://" + IP_ADDRESS + "/Myproject/insert.php", name, id, pword, phone, Birth, gender);
+                    task.execute("http://" + IP_ADDRESS + "/pilgrimproject/insert.php", name, id, pword, phone, Birth, gender);
                 }
                 else
                 {
@@ -226,7 +225,18 @@ public class MemberShip extends AppCompatActivity {
     }
 
     public void findId() {     //아이디찾는 함수입니다.
-
+        m_edit_id = findViewById(R.id.m_edit_id);
+        m_edit_pword = findViewById(R.id.m_edit_pwd);
+        m_edit_pwordCheck = findViewById(R.id.m_edit_pwdcheck);
+        m_edit_year = findViewById(R.id.m_edit_year);
+        m_edit_day = findViewById(R.id.m_edit_day);
+        m_edit_name = findViewById(R.id.m_edit_name);
+        m_edit_phone = findViewById(R.id.m_edit_phone);
+        m_radio_male = findViewById(R.id.m_rb_male);
+        m_radio_female = findViewById(R.id.m_rb_female);
+        joinbtn = findViewById(R.id.btn_sign);
+        btnDupp = findViewById(R.id.btn_duplication);
+        spinner = findViewById(R.id.m_spinner_month);
 
     }
 
