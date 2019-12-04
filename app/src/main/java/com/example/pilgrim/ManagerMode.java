@@ -53,7 +53,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
+
 
 
 import java.io.BufferedInputStream;
@@ -65,7 +65,7 @@ import java.net.URLConnection;
 import java.util.Date;
 
 public class ManagerMode extends AppCompatActivity {
-    Button btn_PictureChoice,btn_PictureUpload,btn_test;
+    Button btn_PictureChoice,btn_PictureUpload,btn_Notification;
     private Uri filePath;
     private String str;
     private ImageView testimg;
@@ -124,17 +124,8 @@ public class ManagerMode extends AppCompatActivity {
         }
         btn_PictureChoice=findViewById(R.id.btn_pictureChoice);
         btn_PictureUpload=findViewById(R.id.btn_gallleryUpdate);
-        btn_test=findViewById(R.id.btn_intent);
-        testimg=findViewById(R.id.imageView5);
-        testtext=findViewById(R.id.textView2);
-        btn_test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getApplication(),MemberShip.class);
-                intent.putExtra("test","으아");
-                startActivity(intent);
-            }
-        });
+        btn_Notification=findViewById(R.id.btn_manger_noti);
+
         btn_PictureChoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,6 +147,12 @@ public class ManagerMode extends AppCompatActivity {
                 }catch(NullPointerException e){
 
                 }
+            }
+        });
+        btn_Notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
