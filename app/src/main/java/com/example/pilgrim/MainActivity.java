@@ -28,7 +28,11 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    //testTt
+<<<<<<<<< Temporary merge branch 1
+
+=========
+    //testTtttttttttttttt
+>>>>>>>>> Temporary merge branch 2
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
