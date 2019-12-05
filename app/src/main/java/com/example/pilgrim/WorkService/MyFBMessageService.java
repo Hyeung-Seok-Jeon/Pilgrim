@@ -38,7 +38,9 @@ public class MyFBMessageService extends FirebaseMessagingService {
         Map<String, String> data = remoteMessage.getData(); //키, 값 자료구조 사용, 제네릭 : String
         String contents = data.get("contents");
 
-        new NotiUtil(getApplicationContext(),contents);
+        Log.d("FCM","onMessageReceived");
+
+        new NotiUtil(this,contents+"",contents+"",NotiUtil.SOUND_AND_VIBRATE);
     }
 
 //    @Override

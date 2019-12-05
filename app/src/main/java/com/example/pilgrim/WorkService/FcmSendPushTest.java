@@ -28,7 +28,11 @@ public class FcmSendPushTest extends AppCompatActivity {
     TextView textView;
 
     static RequestQueue requestQueue;
-    static String regId = "d_AOlbdIHq4:APA91bHWm4gAR99PcBLhSMM2mLxW6pajjkbX0Ab0C-tyEOVRn0bnWOF14afpBqg4D38rmrr8Vj8sFrrgSJs4czrFG9ZxsaJSA8nKFdGQjq3wZJzuyFwUeAC0-bpbIxleuRQEuoDB4ERH";
+    static String regId = "dFYLtHrZu3w:APA91bH3ApOmCH7gcgyHjLrGbr-gdJ4IfgDXwGTi1X9NXjKI6LrpM_fkSoLb2ldR63UlO0UUsiLobIZTu5vALkxwkDSpx_RsBMNAGcCAOSRbL9CxrhSKohizZVcact4uF2gHSP2quici";
+
+    //hy="fdH8EQXcZGA:APA91bGLXgcss3gr7cAQNgNE54BsYT-UMYHR8ZjMZXw8G9W5zrk6biGInr_afK8VLW7Li4TzpSQZZQy-QwTZGiWliam5Mng_LCN4UnwEoQK1vDoEb09npiU4fvd4EP6_bXc3zJtnxIro";
+    //my="d_AOlbdIHq4:APA91bHWm4gAR99PcBLhSMM2mLxW6pajjkbX0Ab0C-tyEOVRn0bnWOF14afpBqg4D38rmrr8Vj8sFrrgSJs4czrFG9ZxsaJSA8nKFdGQjq3wZJzuyFwUeAC0-bpbIxleuRQEuoDB4ERH";
+    //dFYLtHrZu3w:APA91bH3ApOmCH7gcgyHjLrGbr-gdJ4IfgDXwGTi1X9NXjKI6LrpM_fkSoLb2ldR63UlO0UUsiLobIZTu5vALkxwkDSpx_RsBMNAGcCAOSRbL9CxrhSKohizZVcact4uF2gHSP2quici
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +54,6 @@ public class FcmSendPushTest extends AppCompatActivity {
         if (requestQueue == null) {
             requestQueue = Volley.newRequestQueue(getApplicationContext());
         }
-
     }
 
     public void send(String input) {

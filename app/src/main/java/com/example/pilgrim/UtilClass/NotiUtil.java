@@ -92,7 +92,7 @@ public class NotiUtil extends Notification {
             notificationManager.createNotificationChannel(new
                     NotificationChannel("default", "기본 채널", NotificationManager.IMPORTANCE_DEFAULT));
 
-        notificationManager.notify(1, builder.build());
+        notificationManager.notify(2, builder.build());
 
     }
 }
