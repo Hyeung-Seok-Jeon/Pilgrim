@@ -1,7 +1,5 @@
 package com.example.pilgrim;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
@@ -13,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.pilgrim.WorkService.FcmSendPushTest;
 import com.example.pilgrim.WorkService.IdOkActivity;

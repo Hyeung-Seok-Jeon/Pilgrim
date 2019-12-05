@@ -13,7 +13,6 @@ import android.provider.Settings;
 
 import androidx.core.app.NotificationCompat;
 
-import com.example.pilgrim.MainActivity;
 import com.example.pilgrim.R;
 import com.example.pilgrim.WorkService.SurveyActivity;
 
@@ -42,23 +41,19 @@ public class NotiUtil extends Notification {
         Intent showGoIntent = new Intent(context, SurveyActivity.class);
         PendingIntent showGoPendingIntent = PendingIntent.getActivity(context, 0, showGoIntent, 0);
 
-//        showGoIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-//                | Intent.FLAG_ACTIVITY_CLEAR_TOP
-//                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default");
 
         builder.setSmallIcon(R.drawable.noti_image);
 
         if (head != null)
             builder.setContentTitle("" + head.toString()); //"알림 제목"
-        else
+        else {
             builder.setContentTitle("새로운 필그림 설문조사가 등록되었습니다."); //"알림 제목"
+            builder.setContentIntent(PendingIntent.getActivity(context, 0, new Intent(), 0));
+            builder.addAction(R.mipmap.ic_launcher, "설문조사 참여하기", showGoPendingIntent/*cancelPendingIntent*/);
+        }
 
-        builder.setContentText(" - " + body + " - "); //"알람 세부 텍스트"
-
-        builder.setContentIntent(PendingIntent.getActivity(context, 0, new Intent(), 0));
-        builder.addAction(R.mipmap.ic_launcher, "설문조사 참여하기", showGoPendingIntent/*cancelPendingIntent*/);
+        builder.setContentText(body); //"알람 세부 텍스트"
         builder.setColor(Color.RED);
         builder.setAutoCancel(true);
 
@@ -86,12 +81,11 @@ public class NotiUtil extends Notification {
                 break;
         }
 
-        // 알림 표시
+        // 알림 표시 및 오레오 버전 이상일때는 채널 코드 추가
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)       // 정의해야하는 각 알림의 고유한 int값
             notificationManager.createNotificationChannel(new
                     NotificationChannel("default", "기본 채널", NotificationManager.IMPORTANCE_DEFAULT));
-
         notificationManager.notify(1, builder.build());
 
     }
