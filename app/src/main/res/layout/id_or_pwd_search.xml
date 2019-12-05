@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView"
@@ -9,7 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:text="아이디 찾기"
-        android:textSize="25dp" />
+        android:textSize="25dp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,8 +27,11 @@
         <Button
             android:id="@+id/btn_idcode"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48sp"
             android:layout_weight="1"
+            android:background="@drawable/selector_btn_click"
+            android:padding="0sp"
+            android:scaleType="centerCrop"
             android:text="인증번호 받기" />
 
     </LinearLayout>
@@ -45,16 +50,18 @@
         <Button
             android:id="@+id/btn_check1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48sp"
             android:layout_weight="1"
+            android:background="@drawable/selector_btn_click"
+            android:padding="0sp"
+            android:scaleType="centerCrop"
             android:text="확인" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/txt_code1"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        />
+        android:layout_height="50dp" />
 
     <TextView
         android:id="@+id/textView7"
@@ -62,7 +69,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="비밀번호 찾기"
-        android:textSize="25dp" />
+        android:textSize="25dp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -90,10 +98,14 @@
         <Button
             android:id="@+id/btn_pwdcode"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48sp"
             android:layout_weight="1"
+            android:background="@drawable/selector_btn_click"
+            android:padding="0sp"
+            android:scaleType="centerCrop"
             android:text="인증번호 받기" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -108,8 +120,11 @@
         <Button
             android:id="@+id/btn_check2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48sp"
             android:layout_weight="1"
+            android:background="@drawable/selector_btn_click"
+            android:padding="0sp"
+            android:scaleType="centerCrop"
             android:text="확인" />
     </LinearLayout>
 
