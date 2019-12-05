@@ -1,68 +1,42 @@
 package com.example.pilgrim;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.FileProvider;
-import androidx.loader.content.CursorLoader;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CursorAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pilgrim.ui.gallery.GalleryFragment;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.loader.content.CursorLoader;
+
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-
-
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Date;
 
 public class ManagerMode extends AppCompatActivity {
     Button btn_PictureChoice,btn_PictureUpload,btn_Notification;
@@ -75,8 +49,9 @@ public class ManagerMode extends AppCompatActivity {
     int GALLERY_CODE=0;
     private FirebaseAuth auth;
     private FirebaseStorage storage;
-    private FirebaseDatabase database;
-    private DatabaseReference myRef;
+    private FirebaseDatabase database,database_token;
+    private DatabaseReference myRef,myRef_tokens;
+    private EditText editText;
     //test
     public static boolean hasPermissions(Context context, String... permissions) {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
@@ -133,6 +108,7 @@ public class ManagerMode extends AppCompatActivity {
                 intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                 startActivityForResult(intent,GALLERY_CODE);
 
+
           /*      intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), 0);*/
@@ -161,7 +137,7 @@ public class ManagerMode extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 0 && resultCode == RESULT_OK){
             imagePath=getPath(data.getData());
-            File f=new File(imagePath);
+           // File f=new File(imagePath);
 
         }
     }
@@ -176,17 +152,17 @@ public class ManagerMode extends AppCompatActivity {
     private void uploadFile(String uri) {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("업로드중...");
-        if(imagePath!=null)
-             progressDialog.show();
+        if (imagePath != null)
+            progressDialog.show();
         else
             Toast.makeText(this, "먼저 이미지를 선택해주세요", Toast.LENGTH_SHORT).show();
 
 
-        StorageReference storageRef=storage.getReferenceFromUrl("gs://pilgrim-16e7a.appspot.com/");
-        Uri file=Uri.fromFile(new File(uri));
-        filename=file.getLastPathSegment();
-        StorageReference riversRef=storageRef.child("images/"+filename);
-        UploadTask uploadTask=riversRef.putFile(file);
+        StorageReference storageRef = storage.getReferenceFromUrl("gs://pilgrim-16e7a.appspot.com/");
+        Uri file = Uri.fromFile(new File(uri));
+        filename = file.getLastPathSegment();
+        StorageReference riversRef = storageRef.child("images/" + filename);
+        UploadTask uploadTask = riversRef.putFile(file);
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -219,6 +195,55 @@ public class ManagerMode extends AppCompatActivity {
                 e.printStackTrace();
             }*/
     }
+    /*private static final String FCM_MESSAGE_URL = "https://fcm.googleapis.com/fcm/send";
+    private static final String SERVER_KEY = "AAAAgGoRvj8:...";
+    private void sendPostToFCM(final ChatData chatData, final String message) {
+        mFirebaseDatabase.getReference("users")
+                .child(chatData.userEmail.substring(0, chatData.userEmail.indexOf('@')))
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        final UserData userData = dataSnapshot.getValue(UserData.class);
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    // FMC 메시지 생성 start
+                                    JSONObject root = new JSONObject();
+                                    JSONObject notification = new JSONObject();
+                                    notification.put("body", message);
+                                    notification.put("title", getString(R.string.app_name));
+                                    root.put("notification", notification);
+                                    root.put("to", userData.fcmToken);
+                                    // FMC 메시지 생성 end
+
+                                    URL Url = new URL(FCM_MESSAGE_URL);
+                                    HttpURLConnection conn = (HttpURLConnection) Url.openConnection();
+                                    conn.setRequestMethod("POST");
+                                    conn.setDoOutput(true);
+                                    conn.setDoInput(true);
+                                    conn.addRequestProperty("Authorization", "key=" + SERVER_KEY);
+                                    conn.setRequestProperty("Accept", "application/json");
+                                    conn.setRequestProperty("Content-type", "application/json");
+                                    OutputStream os = conn.getOutputStream();
+                                    os.write(root.toString().getBytes("utf-8"));
+                                    os.flush();
+                                    conn.getResponseCode();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }).start();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });*/
+
+
+
     //firebase storage에서 image 가져옴
     private void imgDeliver(String name){
         final FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -227,11 +252,9 @@ public class ManagerMode extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
                 Uri downloadUri=task.getResult();
-
-               ImageDTO imageDTO=new ImageDTO();
-                imageDTO.imageUrI=downloadUri.toString();
-
-                myRef.push().setValue(imageDTO);
+                ImageDTO imageDTO=new ImageDTO();
+               imageDTO.imageUrI=downloadUri.toString();
+               myRef.push().setValue(imageDTO);
               /*  testtext.setText(str);
                 GalleryFragment fragment=new GalleryFragment();
                 Bundle bundle=new Bundle(1);

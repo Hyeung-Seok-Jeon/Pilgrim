@@ -1,6 +1,13 @@
 package com.example.pilgrim.WorkService;
 
 import android.util.Log;
+
+import com.example.pilgrim.UtilClass.NotiUtil;
+import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.firebase.messaging.RemoteMessage;
+
+import java.util.Map;
+
 //import android.app.NotificationChannel;
 //import android.app.NotificationManager;
 //import android.app.PendingIntent;
@@ -10,22 +17,8 @@ import android.util.Log;
 //import android.media.RingtoneManager;
 //import android.os.Build;
 //import android.os.IBinder;
-
 //import androidx.annotation.NonNull;
 //import androidx.core.app.NotificationCompat;
-
-import androidx.annotation.NonNull;
-
-import com.example.pilgrim.R;
-import com.example.pilgrim.UtilClass.NotiUtil;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
-import com.google.firebase.messaging.FirebaseMessagingService;
-import com.google.firebase.messaging.RemoteMessage;
-
-import java.util.Map;
-import java.util.concurrent.Executor;
 
 public class MyFBMessageService extends FirebaseMessagingService {
 
@@ -33,13 +26,23 @@ public class MyFBMessageService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Log.d(R.string.fcm_test+"", "onMessageReceived");
+        Log.d("fcm"+"", "onMessageReceived");
 
         Map<String, String> data = remoteMessage.getData(); //키, 값 자료구조 사용, 제네릭 : String
         String contents = data.get("contents");
 
-        new NotiUtil(getApplicationContext(),contents);
+
+
+        if(data.get("head").equals("empty"))
+        {
+            new NotiUtil(getApplicationContext(),contents);
+        }else{
+            new NotiUtil(getApplicationContext(),"head","contents",3);
+        }
+
+
     }
+
 
 //    @Override
 //    public void onNewToken(@NonNull final String newToken) {
