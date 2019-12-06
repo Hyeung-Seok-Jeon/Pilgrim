@@ -1,10 +1,9 @@
-package com.example.pilgrim.WorkService;
+package com.example.pilgrim;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,14 +15,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.pilgrim.R;
-import com.example.pilgrim.TokenDTD;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -33,71 +28,31 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FcmSendPushTest extends AppCompatActivity {
-    EditText editText;
-    TextView textView;
-    FirebaseInstanceId firebaseInstanceId;
-    JSONArray idArray;
-    private List<TokenDTD> tokenList=new ArrayList<>();
+public class NotiRegister extends AppCompatActivity {
     static RequestQueue requestQueue;
-    private FirebaseDatabase database_token,database;
-    private DatabaseReference myRef;
-    static String regId = "dFYLtHrZu3w:APA91bH3ApOmCH7gcgyHjLrGbr-gdJ4IfgDXwGTi1X9NXjKI6LrpM_fkSoLb2ldR63UlO0UUsiLobIZTu5vALkxwkDSpx_RsBMNAGcCAOSRbL9CxrhSKohizZVcact4uF2gHSP2quici";
-
+    FirebaseDatabase database;
+    private List<TokenDTD> tokenList=new ArrayList<>();
+    Button btn_noti_register;
+    EditText edit_title,edit_message;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fcm_send_push_test);
-        firebaseInstanceId=FirebaseInstanceId.getInstance();
-        editText = findViewById(R.id.Fcm_send_edit);
-        textView = findViewById(R.id.Fcm_send_text);
-
-        database=FirebaseDatabase.getInstance();
-        database_token=FirebaseDatabase.getInstance();
-        myRef=database_token.getReference("token");
-        Button button = findViewById(R.id.Fcm_send_btn);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String input = editText.getText().toString();
-
-                send("empty",input);
-
-            }
-        });
-
+        setContentView(R.layout.noti_register);
+        database= FirebaseDatabase.getInstance();
+        btn_noti_register=findViewById(R.id.btn_noti_register);
+        edit_title=findViewById(R.id.edit_title);
+        edit_message=findViewById(R.id.edit_body_text);
         if (requestQueue == null) {
             requestQueue = Volley.newRequestQueue(getApplicationContext());
         }
-        /*firebaseInstanceId.getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-            @Override
-            public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                if (!task.isSuccessful()) {
-                    Log.w("FIREBASE", "getInstanceId failed", task.getException());
-                    return;
-                }
-
-                TokenDTD tokenDT=new TokenDTD();
-                tokenDT.token= task.getResult().getToken();
-                myRef.push().setValue(tokenDT);
-
-// Log and toast
-//String msg = getString(R.string.msg_token_fmt, token);
-
-            }
-
-
-        });*/
         database.getReference("token").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 tokenList.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    TokenDTD tokenDTD=snapshot.getValue(TokenDTD.class);
-                    tokenList.add(tokenDTD);
+                    TokenDTD tokenRD=snapshot.getValue(TokenDTD.class);
+                    tokenList.add(tokenRD);
                 }
-
-
             }
 
             @Override
@@ -105,19 +60,27 @@ public class FcmSendPushTest extends AppCompatActivity {
 
             }
         });
+        btn_noti_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String title=edit_title.getText().toString();
+                String message=edit_message.getText().toString();
+                send(title,message);
+            }
+        });
     }
 
-
-
-    public void send(String header,String input) {
+    public void send(String header,String body) {
         JSONObject requestData = new JSONObject();
 
         try {
             requestData.put("priority", "high");
 
             JSONObject dataObj = new JSONObject();
-            dataObj.put("head", header);
-            dataObj.put("contents", input);
+
+            dataObj.put("head",header);
+            dataObj.put("contents", body);
 
             requestData.put("data", dataObj);
             JSONArray idArray = new JSONArray();
@@ -156,11 +119,11 @@ public class FcmSendPushTest extends AppCompatActivity {
                 Request.Method.POST, "https://fcm.googleapis.com/fcm/send", requestData,
 
                 new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                listener.onRequestCompleted();
-            }
-        }, new Response.ErrorListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        listener.onRequestCompleted();
+                    }
+                }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 listener.onRequestWithError(error);
@@ -190,22 +153,4 @@ public class FcmSendPushTest extends AppCompatActivity {
         requestQueue.add(request);
     }
 }
-/*firebaseInstanceId.getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-            @Override
-            public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                if (!task.isSuccessful()) {
-                    Log.w("FIREBASE", "getInstanceId failed", task.getException());
-                    return;
-                }
 
-                TokenDTD tokenDT=new TokenDTD();
-                tokenDT.token= task.getResult().getToken();
-                myRef.push().setValue(tokenDT);
-
-// Log and toast
-//String msg = getString(R.string.msg_token_fmt, token);
-
-            }
-
-
-        });*/

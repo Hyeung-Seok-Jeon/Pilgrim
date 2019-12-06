@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,25 +32,20 @@ public class MemberShip extends AppCompatActivity {
     String[] items = {"월", "01", "02", "03", "04", "05", "06", "07","08","09","10","11","12"};
     private EditText m_edit_id,m_edit_pword,m_edit_name,m_edit_pwordCheck,m_edit_year,m_edit_day,m_edit_phone;
     private Spinner spinner;
-    String spinnerName;
-    Button joinbtn,btnDupp;
+    private String spinnerName,Not_seleted;
+    Button btn_join,btn_overlap;
     RadioButton m_radio_male,m_radio_female;
     String gender;
-    TextView mTextViewResult,textTest;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.member_ship);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//정방향 세로로 완전히 고정,회전불가
-        textTest=findViewById(R.id.m_id);
-        findId();
-        try {
-            Intent intent=getIntent();
-            String str=intent.getExtras().getString("test");
-            textTest.setText(str);
-        }catch(NullPointerException e){
 
-        }
+        findId();
+
+
 
 
         //비밀번호 암호화
@@ -77,19 +71,25 @@ public class MemberShip extends AppCompatActivity {
 
             }
         });
-        btnDupp.setOnClickListener(new View.OnClickListener() {
+        btn_overlap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String id = m_edit_id.getText().toString();
-                IDChk idChk = new IDChk(id,"http://" + IP_ADDRESS + "/pilgrimproject/idChk.php",MemberShip.this);
-                idChk.execute();
+                if(id!=null) {
+                    IDChk idChk = new IDChk(id, "http://" + IP_ADDRESS + "/pilgrimproject/idChk.php", MemberShip.this);
+                    idChk.execute();
+                    Not_seleted="select";
+                }else
+                    Toast.makeText(MemberShip.this, "아이디를 입력하세요", Toast.LENGTH_SHORT).show();
+
             }
         });
 
-        joinbtn.setOnClickListener(new View.OnClickListener() {
+        btn_join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+            try {
                 String name = m_edit_name.getText().toString();
                 String id = m_edit_id.getText().toString();
                 String pword = m_edit_pword.getText().toString();
@@ -98,24 +98,20 @@ public class MemberShip extends AppCompatActivity {
                 String YY = m_edit_year.getText().toString();
                 String DD =m_edit_day.getText().toString();
 
-
                 String Birth = YY+spinnerName+DD;
                 if(m_radio_male.isChecked())
                     gender="남자";
                 else if(m_radio_female.isChecked())
                     gender="여자";
-
-                if (pword.equals(pwordCheck))
-                {
+                if (pword.equals(pwordCheck)&&Not_seleted.equals("select")) {
                     InsertData task = new InsertData();
                     task.execute("http://" + IP_ADDRESS + "/pilgrimproject/insert.php", name, id, pword, phone, Birth, gender);
-                }
-                else
-                {
+                }else{
                     Toast.makeText(getApplication(), "비밀번호가 같지 않습니다.", Toast.LENGTH_SHORT).show();
                 }
-
-
+                }catch (NullPointerException e){
+                Toast.makeText(getApplication(), "중복확인 또는 입력하지 않은 정보가 있습니다.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -128,7 +124,6 @@ public class MemberShip extends AppCompatActivity {
     {
 
         ProgressDialog progressDialog;
-
 
         @Override
         protected void onPreExecute() {
@@ -233,8 +228,8 @@ public class MemberShip extends AppCompatActivity {
         m_edit_phone = findViewById(R.id.m_edit_phone);
         m_radio_male = findViewById(R.id.m_rb_male);
         m_radio_female = findViewById(R.id.m_rb_female);
-        joinbtn = findViewById(R.id.btn_sign);
-        btnDupp = findViewById(R.id.btn_duplication);
+        btn_join= findViewById(R.id.btn_sign);
+        btn_overlap = findViewById(R.id.btn_duplication);
         spinner = findViewById(R.id.m_spinner_month);
 
     }

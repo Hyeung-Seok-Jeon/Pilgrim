@@ -1,6 +1,8 @@
 package com.example.pilgrim;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -31,24 +34,34 @@ public class login extends AppCompatActivity {
     private BackPressCloseHandler backPressCloseHandler;
     EditText login_password, login_ID;
     Button btn_login, btn_IdOrPwdSearch, btn_membership;
-    String sId, sPw;
-
-
+    String sId, sPw,save_id,save_pwd;
+    CheckBox id_pwd_save_check;
+    SharedPreferences prefs;
+    boolean login_success=false;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//정방향 세로로 완전히 고정,회전불가
-
+        prefs = getSharedPreferences("PrefName", Activity.MODE_PRIVATE);
         //로그인 패스워드 암호화
         login_password = (EditText) findViewById(R.id.edit_login_pd);
         login_password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         login_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
-
         btn_login = (Button) findViewById(R.id.btn_login);
         login_ID = (EditText) findViewById(R.id.edit_login_id);
         btn_membership = (Button) findViewById(R.id.btn_membership);
+
+        id_pwd_save_check=findViewById(R.id.idandpwdsave);
+        save_id=prefs.getString("id_save","");
+        save_pwd=prefs.getString("pwd_save","");
+        boolean check=prefs.getBoolean("chk_id_pwd",false);
+        if(check){
+            login_ID.setText(save_id);
+            login_password.setText(save_pwd);
+            id_pwd_save_check.setChecked(true);
+        }
         btn_membership.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -64,16 +77,12 @@ public class login extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                Intent intent=new Intent(getApplication(),MainActivity.class);
-                startActivity(intent);
-                try
-                {
+               /* Intent intent=new Intent(getApplication(),MainActivity.class);
+                startActivity(intent);*/
+                try {
                     sId = login_ID.getText().toString();
                     sPw = login_password.getText().toString();
-
-                } catch (NullPointerException e)
-                {
-                    Log.e("err", e.getMessage());
+                } catch (NullPointerException e){
                 }
                 if (sId.equals(""))
                 {
@@ -91,6 +100,7 @@ public class login extends AppCompatActivity {
                 {
                     loginchk lDB = new loginchk();
                     lDB.execute();
+
                 }
 
 
@@ -108,6 +118,26 @@ public class login extends AppCompatActivity {
         });
         backPressCloseHandler = new BackPressCloseHandler(this);
     }
+
+   @Override
+    protected void onStop() {
+        super.onStop();
+        if(login_success) {
+            prefs = getSharedPreferences("PrefName", MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            if (id_pwd_save_check.isChecked()) {
+                editor.putString("id_save", login_ID.getText().toString());
+                editor.putString("pwd_save", login_password.getText().toString());
+                editor.putBoolean("chk_id_pwd", id_pwd_save_check.isChecked());
+            } else {
+                editor.remove("id_save");
+                editor.remove("pwd_save");
+                editor.remove("chk_id_pwd");
+            }
+            editor.apply();
+        }
+
+   }
 
     @Override
     public void onBackPressed()
@@ -130,7 +160,7 @@ public class login extends AppCompatActivity {
             {
                 /* 서버연결 */
                 URL url = new URL(
-                        "http://192.168.0.68/Myproject/login_chk.php");
+                        "http://www.next-table.com/pilgrimproject/login_chk.php");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestMethod("POST");
@@ -190,6 +220,7 @@ public class login extends AppCompatActivity {
 
             if (data.equals("1"))
             {
+                login_success=true;
                 Intent intent = new Intent(login.this, MainActivity.class);
                 startActivity(intent);
             }

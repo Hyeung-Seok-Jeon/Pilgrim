@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -14,9 +13,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -40,19 +36,14 @@ import java.io.File;
 
 public class ManagerMode extends AppCompatActivity {
     Button btn_PictureChoice,btn_PictureUpload,btn_Notification;
-    private Uri filePath;
-    private String str;
-    private ImageView testimg;
-    private TextView  testtext;
     private String filename;
     private String imagePath;
     int GALLERY_CODE=0;
     private FirebaseAuth auth;
     private FirebaseStorage storage;
-    private FirebaseDatabase database,database_token;
-    private DatabaseReference myRef,myRef_tokens;
-    private EditText editText;
-    //test
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
+
     public static boolean hasPermissions(Context context, String... permissions) {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
             for (String permission : permissions) {
@@ -64,20 +55,6 @@ public class ManagerMode extends AppCompatActivity {
         }
         return true;
     }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-
-       // if(str!=null) {
-            SharedPreferences sharedPreferences = getSharedPreferences("uri", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("galleryUri",str);
-            editor.apply();
-       // }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +63,6 @@ public class ManagerMode extends AppCompatActivity {
         auth=FirebaseAuth.getInstance();
         database=FirebaseDatabase.getInstance();
         myRef=database.getReference("GalleryUris");
-        str=null;
         storage=FirebaseStorage.getInstance();
         String[] PERMISSIONS ={
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -107,12 +83,6 @@ public class ManagerMode extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                 startActivityForResult(intent,GALLERY_CODE);
-
-
-          /*      intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), 0);*/
-
             }
         });
         btn_PictureUpload.setOnClickListener(new View.OnClickListener() {
@@ -128,6 +98,8 @@ public class ManagerMode extends AppCompatActivity {
         btn_Notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),NotiRegister.class);
+                startActivity(intent);
 
             }
         });
@@ -137,7 +109,7 @@ public class ManagerMode extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 0 && resultCode == RESULT_OK){
             imagePath=getPath(data.getData());
-           // File f=new File(imagePath);
+
 
         }
     }
@@ -188,63 +160,9 @@ public class ManagerMode extends AppCompatActivity {
             }
         });
 
-            /*try {
-                //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
-                Toast.makeText(this, "사진 선택 완료", Toast.LENGTH_SHORT).show();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            }*/
+
     }
-    /*private static final String FCM_MESSAGE_URL = "https://fcm.googleapis.com/fcm/send";
-    private static final String SERVER_KEY = "AAAAgGoRvj8:...";
-    private void sendPostToFCM(final ChatData chatData, final String message) {
-        mFirebaseDatabase.getReference("users")
-                .child(chatData.userEmail.substring(0, chatData.userEmail.indexOf('@')))
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        final UserData userData = dataSnapshot.getValue(UserData.class);
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    // FMC 메시지 생성 start
-                                    JSONObject root = new JSONObject();
-                                    JSONObject notification = new JSONObject();
-                                    notification.put("body", message);
-                                    notification.put("title", getString(R.string.app_name));
-                                    root.put("notification", notification);
-                                    root.put("to", userData.fcmToken);
-                                    // FMC 메시지 생성 end
-
-                                    URL Url = new URL(FCM_MESSAGE_URL);
-                                    HttpURLConnection conn = (HttpURLConnection) Url.openConnection();
-                                    conn.setRequestMethod("POST");
-                                    conn.setDoOutput(true);
-                                    conn.setDoInput(true);
-                                    conn.addRequestProperty("Authorization", "key=" + SERVER_KEY);
-                                    conn.setRequestProperty("Accept", "application/json");
-                                    conn.setRequestProperty("Content-type", "application/json");
-                                    OutputStream os = conn.getOutputStream();
-                                    os.write(root.toString().getBytes("utf-8"));
-                                    os.flush();
-                                    conn.getResponseCode();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }).start();
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });*/
-
-
-
-    //firebase storage에서 image 가져옴
+    //firebase storage에서 image uri를 가져와서 데이터베이스에 넣음
     private void imgDeliver(String name){
         final FirebaseStorage storage = FirebaseStorage.getInstance();
         final StorageReference storageRef = storage.getReferenceFromUrl("gs://pilgrim-16e7a.appspot.com/").child("images");
@@ -255,21 +173,7 @@ public class ManagerMode extends AppCompatActivity {
                 ImageDTO imageDTO=new ImageDTO();
                imageDTO.imageUrI=downloadUri.toString();
                myRef.push().setValue(imageDTO);
-              /*  testtext.setText(str);
-                GalleryFragment fragment=new GalleryFragment();
-                Bundle bundle=new Bundle(1);
-                bundle.putString("url",str);
-                fragment.setArguments(bundle);*/
 
-                //Intent intent=new Intent(getApplicationContext(), GalleryFragment.class);
-               // intent.putExtra("String-url",str);
-               // intent.putExtra("ConditionValue",3);
-                //startActivity(intent);
-                /*String url;
-                url=downloadUri.toString();
-                Picasso.get().load(downloadUri).into(testimg);*/
-
-               // getImageBitmap(url);
             }
         }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -278,59 +182,6 @@ public class ManagerMode extends AppCompatActivity {
                     }
                 });
     }
-    /*//업로드할 파일이 있으면 수행
-        if (filePath != null) {
-        //업로드 진행 Dialog 보이기
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("업로드중...");
-        progressDialog.show();
-
-        //storage
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-
-        //Unique한 파일명을 만들자.
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMDD_mmss");
-        Date now = new Date();
-        filename = formatter.format(now) + ".jpg";
-        //storage 주소와 폴더 파일명을 지정해 준다.
-        StorageReference storageRef = storage.getReferenceFromUrl("gs://pilgrim-16e7a.appspot.com/").child("images/" + filename);
-
-        storageRef.putFile(filePath)
-                //성공시
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
-                        Toast.makeText(getApplicationContext(), "데이터베이스 업로드 완료!", Toast.LENGTH_SHORT).show();
-
-                        imgDeliver();
-
-                    }
-                })
-                //실패시
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        Toast.makeText(getApplicationContext(), "업로드 실패!", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                //진행중
-                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                        @SuppressWarnings("VisibleForTests") //이걸 넣어 줘야 아랫줄에 에러가 사라진다. 넌 누구냐?
-                                double progress = (100 * taskSnapshot.getBytesTransferred()) /  taskSnapshot.getTotalByteCount();
-                        //dialog에 진행률을 퍼센트로 출력해 준다
-                        progressDialog.setMessage("Uploaded " + ((int) progress) + "% ...");
-
-                    }
-                });
-
-    } else {
-        Toast.makeText(getApplicationContext(), "파일을 먼저 선택하세요.", Toast.LENGTH_SHORT).show();
-    }*/
-
 }
 
 

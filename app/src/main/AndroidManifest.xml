@@ -20,7 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".WorkService.IdOkActivity"></activity>
+        <activity android:name=".NotiRegister"></activity>
+        <activity android:name=".WorkService.IdOkActivity" />
         <activity android:name=".WorkService.FcmSendPushTest" />
 
         <service
@@ -34,7 +35,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".WorkService.SurveyActivity"/>
+        <activity android:name=".WorkService.SurveyActivity" />
         <activity android:name=".Survey" />
         <activity android:name=".ManagerMode" />
         <activity android:name=".IdOrPwdSearch" />

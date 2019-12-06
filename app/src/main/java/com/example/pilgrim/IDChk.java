@@ -21,6 +21,7 @@ public class IDChk extends AsyncTask<Void, Integer, Void> {
     private String IpAddress;
     private Context context;
 
+
     public IDChk(String ID, String IP, Context context) {
         this.idChk = ID;
         this.IpAddress = IP;
@@ -87,8 +88,10 @@ public class IDChk extends AsyncTask<Void, Integer, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        if (data.equals(idChk)) {
+        if (data.equals(idChk))
             Toast.makeText(context, "아이디가 중복되었습니다.", Toast.LENGTH_SHORT).show();
+        else if(data.equals("0")){
+            Toast.makeText(context, "중복체크를 해주세요.", Toast.LENGTH_SHORT).show();
         }else {
             Toast.makeText(context, "아이디가 없습니다.", Toast.LENGTH_SHORT).show();
         }
