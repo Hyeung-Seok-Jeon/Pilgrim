@@ -28,15 +28,12 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-<<<<<<<<< Temporary merge branch 1
 
-=========
-    //testTtttttttttttttt
->>>>>>>>> Temporary merge branch 2
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
       //  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//정방향 세로로 완전히 고정,회전불가
         Toolbar toolbar = findViewById(R.id.toolbar);
 

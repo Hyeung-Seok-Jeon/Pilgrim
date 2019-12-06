@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.pilgrim.ManagerMode;
 import com.example.pilgrim.R;
+import com.example.pilgrim.Survey;
 
 public class HomeFragment extends Fragment {
     private String managerPassword="123456";
@@ -30,6 +31,13 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         ImageButton imgbtn_survey=root.findViewById(R.id.imgbtn_survey);
+                imgbtn_survey.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent it = new Intent(getContext(), Survey.class);
+                        startActivity(it);
+                    }
+                });
         ImageButton imgbtn_map=root.findViewById(R.id.imgbtn_map);
         ImageButton imgbtn_mannagerMode=root.findViewById(R.id.imgbtn_manager);
         imgbtn_mannagerMode.setOnClickListener(new View.OnClickListener() {
