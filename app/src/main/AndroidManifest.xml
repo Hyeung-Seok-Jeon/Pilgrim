@@ -12,8 +12,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -23,7 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".NotiRegister"></activity>
+        <activity android:name=".SurveyResult"></activity>
+        <activity android:name=".NotiRegister" />
         <activity android:name=".WorkService.IdOkActivity" />
         <activity android:name=".WorkService.FcmSendPushTest" />
 
@@ -41,6 +41,7 @@
         <activity android:name=".WorkService.SurveyActivity" />
         <activity android:name=".ManagerMode" />
         <activity android:name=".IdOrPwdSearch" />
+        <activity android:name=".Survey" />
         <activity
             android:name=".SignWelcom"
             android:theme="@style/Theme.AppCompat.Dialog" />
