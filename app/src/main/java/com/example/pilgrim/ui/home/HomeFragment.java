@@ -1,8 +1,13 @@
 package com.example.pilgrim.ui.home;
 
+import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
@@ -15,23 +20,60 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.pilgrim.GpsTracker;
 import com.example.pilgrim.ManagerMode;
 import com.example.pilgrim.R;
 
 public class HomeFragment extends Fragment {
     private String managerPassword="123456";
+    private GpsTracker gpsTracker;
+
+    private static final int GPS_ENABLE_REQUEST_CODE = 2001;
+    private static final int PERMISSIONS_REQUEST_CODE = 100;
+
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) !=
+                        PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
 
 
+        return true;
+    }
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        String[] PERMISSIONS ={
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+        };
+        if(!hasPermissions(getActivity(), PERMISSIONS)){
+            //권한요청
+            ActivityCompat.requestPermissions(getActivity(), PERMISSIONS,1);
+        }
 
         ImageButton imgbtn_survey=root.findViewById(R.id.imgbtn_survey);
         ImageButton imgbtn_map=root.findViewById(R.id.imgbtn_map);
         ImageButton imgbtn_mannagerMode=root.findViewById(R.id.imgbtn_manager);
+        imgbtn_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gpsTracker=new GpsTracker(getActivity());
+                double latitude=gpsTracker.getLatitude();
+                double longitude=gpsTracker.getLongitude();
+                Toast.makeText(getActivity(), "현재위치 \n위도 " + latitude + "\n경도 " + longitude, Toast.LENGTH_LONG).show();
+                Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?saddr="+latitude+","+longitude+"&daddr=37.4180983,126.6733512"));
+                startActivity(intent);
+            }
+        });
         imgbtn_mannagerMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {

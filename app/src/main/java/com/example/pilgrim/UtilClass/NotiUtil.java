@@ -43,7 +43,7 @@ public class NotiUtil extends Notification {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default");
 
-        builder.setSmallIcon(R.drawable.noti_image);
+        builder.setSmallIcon(R.drawable.prilgrimnotiicon);
 
         if (head.equals("empty")) {
             builder.setContentTitle("새로운 필그림 설문조사가 등록되었습니다."); //"알림 제목"
