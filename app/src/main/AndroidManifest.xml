@@ -22,7 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SurveyResult"></activity>
+        <activity android:name=".SurveyRegister"></activity>
+        <activity android:name=".SurveyResult" />
         <activity android:name=".NotiRegister" />
         <activity android:name=".WorkService.IdOkActivity" />
         <activity android:name=".WorkService.FcmSendPushTest" />

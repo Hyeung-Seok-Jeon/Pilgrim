@@ -23,10 +23,10 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.ViewHolder
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView choice;
         RadioGroup radioGroup;
-        RadioButton ans1,ans2,ans3,ans4,ans5;
+        RadioButton ans1, ans2, ans3, ans4, ans5;
 
         ViewHolder(View itemView) {
-            super(itemView) ;
+            super(itemView);
             radioGroup = itemView.findViewById(R.id.radiogroup);
             choice = itemView.findViewById(R.id.choice);
             ans1 = itemView.findViewById(R.id.ans1);
@@ -35,8 +35,8 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.ViewHolder
             ans4 = itemView.findViewById(R.id.ans4);
             ans5 = itemView.findViewById(R.id.ans5);
 
-
         }
+
     }
     @NonNull
     @Override
@@ -55,13 +55,13 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-            SurveyData surveyData = data.get(position);
-            holder.choice.setText(surveyData.getSurveyMore(0));
-            holder.ans1.setText(surveyData.getSurveyMore(1));
-            holder.ans2.setText(surveyData.getSurveyMore(2));
-            holder.ans3.setText(surveyData.getSurveyMore(3));
-            holder.ans4.setText(surveyData.getSurveyMore(4));
-            holder.ans5.setText(surveyData.getSurveyMore(5));
+        SurveyData surveyData = data.get(position);
+        holder.choice.setText(surveyData.getSurveyMore(0));
+        holder.ans1.setText(surveyData.getSurveyMore(1));
+        holder.ans2.setText(surveyData.getSurveyMore(2));
+        holder.ans3.setText(surveyData.getSurveyMore(3));
+        holder.ans4.setText(surveyData.getSurveyMore(4));
+        holder.ans5.setText(surveyData.getSurveyMore(5));
 
     }
 

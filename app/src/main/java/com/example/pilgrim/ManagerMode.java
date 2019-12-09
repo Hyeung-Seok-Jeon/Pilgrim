@@ -35,7 +35,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 
 public class ManagerMode extends AppCompatActivity {
-    Button btn_PictureChoice,btn_PictureUpload,btn_Notification;
+    Button btn_PictureChoice,btn_PictureUpload,btn_Notification,btn_Survey_Make;
     private String filename;
     private String imagePath;
     int GALLERY_CODE=0;
@@ -76,7 +76,7 @@ public class ManagerMode extends AppCompatActivity {
         btn_PictureChoice=findViewById(R.id.btn_pictureChoice);
         btn_PictureUpload=findViewById(R.id.btn_gallleryUpdate);
         btn_Notification=findViewById(R.id.btn_manger_noti);
-
+        btn_Survey_Make=findViewById(R.id.btn_survey_make);
         btn_PictureChoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +101,13 @@ public class ManagerMode extends AppCompatActivity {
                 Intent intent=new Intent(getApplicationContext(),NotiRegister.class);
                 startActivity(intent);
 
+            }
+        });
+        btn_Survey_Make.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),SurveyRegister.class);
+                startActivity(intent);
             }
         });
     }
