@@ -1,16 +1,9 @@
 package com.example.pilgrim;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.pm.ActivityInfo;
-import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -22,6 +15,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -58,6 +54,7 @@ public class IdOrPwdSearch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.id_or_pwd_search);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//정방향 세로로 완전히 고정,회전불가
+        sPhone=null;
         String[] PERMISSIONS ={
                 Manifest.permission.SEND_SMS,
                 Manifest.permission.RECEIVE_SMS,
@@ -86,20 +83,24 @@ public class IdOrPwdSearch extends AppCompatActivity {
 
         btn_idCode.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v)
-            {
-                try
-                {
+            public void onClick(View v) {
+                try {
                     sPhone=IdShPhone.getText().toString();
-                    param = "u_phone=" + sPhone +"";
-                    IpAddress="http://www.next-table.com/pilgrimproject/find_id.php";
+                    if(sPhone!=null) {
+                        param = "u_phone=" + sPhone + "";
+                        IpAddress = "http://www.next-table.com/pilgrimproject/find_id.php";
+                        distinction = 1;
+                        IdorPwdSearch idorPwdSearch = new IdorPwdSearch();
+                        idorPwdSearch.execute();
+                    }
+                    else{
+                    Toast.makeText(IdOrPwdSearch.this, "핸드폰번호를 입력하세요.", Toast.LENGTH_SHORT).show();
+                    }
+
                 }catch(NullPointerException e){
 
                 }
 
-                distinction=1;
-                IdorPwdSearch idorPwdSearch=new IdorPwdSearch();
-                idorPwdSearch.execute();
 
             }
         });

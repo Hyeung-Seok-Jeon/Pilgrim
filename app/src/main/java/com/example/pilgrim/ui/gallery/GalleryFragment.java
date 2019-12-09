@@ -1,25 +1,12 @@
 package com.example.pilgrim.ui.gallery;
 
-import android.app.AlertDialog;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,14 +16,11 @@ import com.example.pilgrim.ImageDTO;
 import com.example.pilgrim.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class GalleryFragment extends Fragment {
 
@@ -70,38 +54,7 @@ public class GalleryFragment extends Fragment {
 
             }
         });
-
-
-      /*  Bundle extra=getArguments();
-        if(extra!=null){
-
-           galleryUri=extra.getString("uri");
-        }
-        test.setText(galleryUri);*/
-
-
-
-       /* GridView gridView=root.findViewById(R.id.gridview);
-        gridView.setAdapter(new GalleryAdapter(getContext()));
-
-        galleryList.add(galleryUri);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                View Bigview = View.inflate(getActivity(), R.layout.fragment_gallery_big_size, null);
-                ImageView bigPitcure = Bigview.findViewById(R.id.imageView4);
-                bigPitcure.setImageResource(mThumbIds[position]);
-                AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
-                dialog.setTitle("사진");
-                dialog.setIcon(R.drawable.gallery);
-                dialog.setView(Bigview);
-                dialog.setNegativeButton("닫기", null);
-                dialog.show();
-
-            }
-        });*/
-
-return root;
+            return root;
     }
     class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
@@ -164,4 +117,33 @@ return root;
 
 
     }*/
+
+    /*  Bundle extra=getArguments();
+        if(extra!=null){
+
+           galleryUri=extra.getString("uri");
+        }
+        test.setText(galleryUri);*/
+
+
+
+       /* GridView gridView=root.findViewById(R.id.gridview);
+        gridView.setAdapter(new GalleryAdapter(getContext()));
+
+        galleryList.add(galleryUri);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                View Bigview = View.inflate(getActivity(), R.layout.fragment_gallery_big_size, null);
+                ImageView bigPitcure = Bigview.findViewById(R.id.imageView4);
+                bigPitcure.setImageResource(mThumbIds[position]);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+                dialog.setTitle("사진");
+                dialog.setIcon(R.drawable.gallery);
+                dialog.setView(Bigview);
+                dialog.setNegativeButton("닫기", null);
+                dialog.show();
+
+            }
+        });*/
 }

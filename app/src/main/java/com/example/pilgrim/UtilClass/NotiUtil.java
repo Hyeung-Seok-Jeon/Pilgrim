@@ -43,14 +43,16 @@ public class NotiUtil extends Notification {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default");
 
-        builder.setSmallIcon(R.drawable.noti_image);
+        builder.setSmallIcon(R.drawable.prilgrimnotiicon);
 
-        if (head != null)
-            builder.setContentTitle("" + head.toString()); //"알림 제목"
-        else {
+        if (head.equals("empty")) {
             builder.setContentTitle("새로운 필그림 설문조사가 등록되었습니다."); //"알림 제목"
             builder.setContentIntent(PendingIntent.getActivity(context, 0, new Intent(), 0));
             builder.addAction(R.mipmap.ic_launcher, "설문조사 참여하기", showGoPendingIntent/*cancelPendingIntent*/);
+        }
+
+        else {
+            builder.setContentTitle("" + head.toString()); //"알림 제목"
         }
 
         builder.setContentText(body); //"알람 세부 텍스트"

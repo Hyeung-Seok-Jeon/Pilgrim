@@ -30,15 +30,12 @@ public class MyFBMessageService extends FirebaseMessagingService {
 
         Map<String, String> data = remoteMessage.getData(); //키, 값 자료구조 사용, 제네릭 : String
         String contents = data.get("contents");
+        String head=data.get("head");
 
 
 
-        if(data.get("head").equals("empty"))
-        {
-            new NotiUtil(getApplicationContext(),contents);
-        }else{
-            new NotiUtil(getApplicationContext(),"head","contents",3);
-        }
+            new NotiUtil(getApplicationContext(),head,contents,3);
+
 
 
     }
