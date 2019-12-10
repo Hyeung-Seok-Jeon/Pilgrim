@@ -36,7 +36,7 @@ public class Survey extends AppCompatActivity {
 
     SurveyAdapter adapter;
     RecyclerView.LayoutManager layoutManager;
-    private final String TAG = "디버그용";
+
     RecyclerView recyclerView;
     Button call ;
     ArrayList<SurveyData> dataset = new ArrayList<>();
@@ -56,25 +56,9 @@ public class Survey extends AppCompatActivity {
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-        //jsonObject.getJSONArray("response");
-        try {
-            assert toto != null;
 
-            JSONArray jarray = new JSONObject(toto).getJSONArray("response");
-             int count = 0;
-            while(count < jarray.length()) {
-                JSONObject object = jarray.getJSONObject(count);
-                String[] array = {object.getString("s_Choice"),object.getString("R_One"),object.getString("R_two"),object.getString("R_three"),object.getString("R_four"),object.getString("R_five")};
-                //값들을 User클래스에 묶어줍니다
-                SurveyData data = new SurveyData();
-                data.setSurvey(array);
-                dataset.add(data);
-                count++;
-            }
 
-            } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
 
 
         adapter = new SurveyAdapter(dataset);
