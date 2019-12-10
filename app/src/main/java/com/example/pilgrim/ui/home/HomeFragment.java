@@ -26,7 +26,7 @@ import androidx.fragment.app.Fragment;
 import com.example.pilgrim.GpsTracker;
 import com.example.pilgrim.ManagerMode;
 import com.example.pilgrim.R;
-import com.example.pilgrim.Survey;
+import com.example.pilgrim.SurveyEnter;
 
 public class HomeFragment extends Fragment {
     private String managerPassword="123456";
@@ -64,11 +64,11 @@ public class HomeFragment extends Fragment {
         ImageButton imgbtn_survey=root.findViewById(R.id.imgbtn_survey);
         ImageButton imgbtn_map=root.findViewById(R.id.imgbtn_map);
         ImageButton imgbtn_mannagerMode=root.findViewById(R.id.imgbtn_manager);
-        imgbtn_survey=root.findViewById(R.id.imgbtn_survey);
+
         imgbtn_survey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), Survey.class));
+                startActivity(new Intent(getContext(), SurveyEnter.class));
             }
         });
         imgbtn_map.setOnClickListener(new View.OnClickListener() {
