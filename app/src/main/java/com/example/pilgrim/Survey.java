@@ -56,8 +56,6 @@ public class Survey extends AppCompatActivity {
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-
-        JSONObject jsonObject;
         //jsonObject.getJSONArray("response");
         try {
             assert toto != null;

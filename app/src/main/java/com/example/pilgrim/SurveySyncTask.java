@@ -9,13 +9,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class SurveySyncTask extends AsyncTask<String, Void, String> {
-    ArrayList<SurveyData> syncdataset = new ArrayList<>();
-    private final String TAG = "디버그용";
-    String data;
-    String jsonFIle;
+    private ArrayList<SurveyData> syncdataset = new ArrayList<>();
 
     @Override
     protected String doInBackground(String... params) {
@@ -29,9 +27,10 @@ public class SurveySyncTask extends AsyncTask<String, Void, String> {
             httpURLConnection.setConnectTimeout(5000);
             httpURLConnection.setRequestMethod("POST");  //
             httpURLConnection.connect();     //연결
+            String TAG = "디버그용";
             Log.d(TAG, "여기는 된다 오바! http 커넥션구역이다.");
             OutputStream outputStream = httpURLConnection.getOutputStream();  //데이터를 내보낼거기대문에 아웃풋스트림.
-            outputStream.write(postParameters.getBytes("UTF-8"));
+            outputStream.write(postParameters.getBytes(StandardCharsets.UTF_8));
             outputStream.flush();  //데이터를 밀어준다
             outputStream.close();  //다 보냈으면 끊어준다.
 
@@ -46,7 +45,7 @@ public class SurveySyncTask extends AsyncTask<String, Void, String> {
                 inputStream = httpURLConnection.getErrorStream();
 
             }
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
 
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
