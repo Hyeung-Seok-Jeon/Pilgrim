@@ -79,14 +79,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="100dp"
                     android:layout_weight="1"
-                    android:text="질문추가" />
+                    android:background="@drawable/selector_btn_click"
+                    android:text="질문추가"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp" />
 
                 <Button
                     android:id="@+id/btn_delete_question"
                     android:layout_width="wrap_content"
                     android:layout_height="100dp"
                     android:layout_weight="1"
-                    android:text="삭제" />
+                    android:background="@drawable/selector_btn_click"
+                    android:text="삭제"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp" />
             </LinearLayout>
 
         </LinearLayout>
@@ -99,9 +105,12 @@
             <Button
                 android:id="@+id/btn_sur_register"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="53dp"
                 android:layout_weight="1"
-                android:text="설문 등록" />
+                android:background="@drawable/selector_btn_click"
+                android:text="설문 등록"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp" />
 
         </LinearLayout>
 

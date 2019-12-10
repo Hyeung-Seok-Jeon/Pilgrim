@@ -20,9 +20,12 @@
 
     <Button
         android:id="@+id/Fcm_send_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="205dp"
+        android:layout_height="49dp"
+        android:background="@drawable/selector_btn_click"
         android:text="Button"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

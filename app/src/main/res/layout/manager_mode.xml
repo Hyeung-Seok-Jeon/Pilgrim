@@ -8,24 +8,36 @@
         android:id="@+id/btn_pictureChoice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/selector_btn_click"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
         android:text="사진선택" />
 
     <Button
         android:id="@+id/btn_gallleryUpdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/selector_btn_click"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
         android:text="사진업로드" />
 
     <Button
         android:id="@+id/btn_manger_noti"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/selector_btn_click"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
         android:text="알림생성" />
 
     <Button
         android:id="@+id/btn_survey_make"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/selector_btn_click"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
         android:text="설문조사 작성" />
 
     <EditText

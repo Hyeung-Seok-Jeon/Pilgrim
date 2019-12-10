@@ -5,8 +5,7 @@
     android:id="@+id/swipe"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Survey"
-    >
+    tools:context=".Survey">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,35 +17,45 @@
             android:id="@+id/survey_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="9"/>
+            android:layout_weight="9"
+            android:orientation="vertical" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_height="51dp"
             android:layout_weight="1"
+            android:orientation="horizontal"
             android:weightSum="3">
+
             <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/callsurvey"
                 android:id="@+id/callSurvey"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/selector_btn_click"
+                android:text="@string/callsurvey"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
                 tools:ignore="NestedWeights" />
 
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/selector_btn_click"
                 android:text="@string/reset"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
                 tools:ignore="NestedWeights" />
 
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/sendresult" />
+                android:background="@drawable/selector_btn_click"
+                android:text="@string/sendresult"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp" />
         </LinearLayout>
 
 
