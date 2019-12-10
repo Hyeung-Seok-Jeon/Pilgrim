@@ -12,6 +12,7 @@ import android.os.Build;
 import android.provider.Settings;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.example.pilgrim.R;
 import com.example.pilgrim.WorkService.SurveyActivity;
