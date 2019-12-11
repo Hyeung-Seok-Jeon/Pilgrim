@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.InputType;
+import android.text.Spanned;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +27,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.regex.Pattern;
 
 public class MemberShip extends AppCompatActivity {
     private static String IP_ADDRESS = "www.next-table.com";
@@ -114,6 +117,18 @@ public class MemberShip extends AppCompatActivity {
                 }
             }
         });
+
+        //한국어만 입력 가능하게 하는 필터, 필요시 사용하세용!-->
+        /*InputFilter filterKor = new InputFilter() {
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                Pattern ps = Pattern.compile("^[ㄱ-ㅣ가-힣]*$");
+                if (!ps.matcher(source).matches()) {
+                    return "";
+                }
+                return null;
+            }
+        };
+        m_edit_name.setFilters(new InputFilter[]{filterKor});*/
 
     }
 
@@ -233,5 +248,6 @@ public class MemberShip extends AppCompatActivity {
         spinner = findViewById(R.id.m_spinner_month);
 
     }
+
 
 }

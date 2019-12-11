@@ -78,12 +78,6 @@ public class HomeFragment extends Fragment {
             ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), PERMISSIONS, 1);
         }
 
-
-        ImageButton imgbtn_survey=root.findViewById(R.id.imgbtn_survey);
-        ImageButton imgbtn_map=root.findViewById(R.id.imgbtn_map);
-        ImageButton imgbtn_mannagerMode=root.findViewById(R.id.imgbtn_manager);
-
-
         ImageButton imgbtn_survey = root.findViewById(R.id.imgbtn_survey);
         ImageButton imgbtn_map = root.findViewById(R.id.imgbtn_map);
         final ImageButton imgbtn_mannagerMode = root.findViewById(R.id.imgbtn_manager);

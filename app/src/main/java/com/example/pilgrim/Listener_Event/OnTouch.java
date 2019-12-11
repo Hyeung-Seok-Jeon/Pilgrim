@@ -11,15 +11,12 @@ import com.example.pilgrim.R;
 
 public class OnTouch implements View.OnTouchListener {
 
-    Context context;
-
-    Animation press;
-    Animation release;
-    Animation sparkle;
-    Animation click;
+    private Animation press;
+    private Animation release;
+    private Animation sparkle;
+    private Animation click;
 
     public OnTouch(Context context) {
-        this.context = context;
         /***************Animation******************/
         press =
                 AnimationUtils.loadAnimation(context, R.anim.effect_scale_press);

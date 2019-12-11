@@ -29,12 +29,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonalResult extends AppCompatActivity implements TextWatcher {
-    List<PersonalRD>personalList=new ArrayList<>();
+    ArrayList<PersonalRD>personalList=new ArrayList<>();
     private FirebaseDatabase database;
     ResultAdapter resultAdapter;
     EditText edit_search;
 
-    List<PersonalRD> Filteredlist;
+    ArrayList<String> Filteredlist;
+    ArrayList<String> unfilteredList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,21 +43,21 @@ public class PersonalResult extends AppCompatActivity implements TextWatcher {
 
         RecyclerView recyclerView=findViewById(R.id.recycler_personal);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        resultAdapter=new ResultAdapter();
+        resultAdapter=new ResultAdapter(this,personalList);
         recyclerView.setAdapter(resultAdapter);
 
         edit_search=findViewById(R.id.edit_search);
         edit_search.addTextChangedListener(this);
-        Filteredlist=new ArrayList<>();
+
+        resultAdapter.getFilter().filter(edit_search.getText().toString());
         database=FirebaseDatabase.getInstance();
         database.getReference("PersonalResult").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                personalList.clear();
+                   personalList.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     PersonalRD personalRD = snapshot.getValue(PersonalRD.class);
                     personalList.add(personalRD);
-                    filteredList.add(personalRD.name);
                 }
 
 
@@ -85,83 +86,5 @@ public class PersonalResult extends AppCompatActivity implements TextWatcher {
 
     }
 
-    class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder> implements Filterable {
-        RadioButton radioButton;
 
-
-
-        @NonNull
-        @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            Context context = parent.getContext();
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.personal_list, parent, false);
-            ResultAdapter.ViewHolder viewHolder = new ResultAdapter.ViewHolder(view);
-            return viewHolder;
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            holder.text_name.setText(personalList.get(position));
-            holder.text_p_choice1.setText(personalList.get(position).my_choice1);
-            holder.text_p_choice2.setText(personalList.get(position).my_choice2);
-            holder.text_p_choice3.setText(personalList.get(position).my_choice3);
-            holder.text_p_choice4.setText(personalList.get(position).my_choice4);
-            holder.text_p_choice5.setText(personalList.get(position).my_choice5);
-
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return personalList.size();
-        }
-
-        @Override
-        public Filter getFilter() {
-            return new Filter() {
-                @Override
-                protected FilterResults performFiltering(CharSequence constraint) {
-                    String charString=constraint.toString();
-                    if(charString.isEmpty()){
-                        Filteredlist=personalList;
-                    }else{
-                        ArrayList<String> filteringList=new ArrayList<>();
-                        for(List<PersonalRD>:personalList){
-                            if(name.toLowerCase().contains(charString.toLowerCase()))
-                                filteringList.add(name);
-                        }
-                        filteredList=filteringList;
-                    }
-                    FilterResults filterResults=new FilterResults();
-                    filterResults.values=filteredList;
-                    return filterResults;
-                }
-
-                @Override
-                protected void publishResults(CharSequence constraint, FilterResults results) {
-                    filteredList=(ArrayList<String>)results.values;
-                    notifyDataSetChanged();
-                }
-            };
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            private TextView text_name,text_p_choice1,text_p_choice2,text_p_choice3,text_p_choice4,text_p_choice5;
-
-
-            ViewHolder(View view) {
-                super(view);
-                text_name=view.findViewById(R.id.pl_txt_name);
-                text_p_choice1=view.findViewById(R.id.pl_txt1);
-                text_p_choice2=view.findViewById(R.id.pl_txt2);
-                text_p_choice3=view.findViewById(R.id.pl_txt3);
-                text_p_choice4=view.findViewById(R.id.pl_txt4);
-                text_p_choice5=view.findViewById(R.id.pl_txt5);
-
-            }
-        }
-
-
-    }
 }

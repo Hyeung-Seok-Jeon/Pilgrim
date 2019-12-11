@@ -28,12 +28,10 @@ public class SurveyEnter extends AppCompatActivity {
     private List<HeadRD> headList = new ArrayList<>();
     private List<QuestionRD> questionList = new ArrayList<>();
 
-    private FirebaseDatabase database1, database2;
-
     private DatabaseReference myRef;
     TextView txt_title,txt_explain;
     Button btn_survey_complete;
-    String str="전형석";
+    String str="";
     SBPersonalResult sbPersonalResult;
     String[] choice=new String[5];
     int count=0;
@@ -41,8 +39,8 @@ public class SurveyEnter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.survey_enter);
-        database1 = FirebaseDatabase.getInstance();
-        myRef=database1.getReference("PersonalResult");
+        FirebaseDatabase database1 = FirebaseDatabase.getInstance();
+        myRef= database1.getReference("PersonalResult");
         sbPersonalResult=new SBPersonalResult();
         sbPersonalResult.name=str;
 
@@ -109,8 +107,7 @@ public class SurveyEnter extends AppCompatActivity {
         });
 
 
-
-        database2 = FirebaseDatabase.getInstance();
+        FirebaseDatabase database2 = FirebaseDatabase.getInstance();
         database2.getReference("Question").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

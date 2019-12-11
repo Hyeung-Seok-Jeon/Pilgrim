@@ -1,5 +1,6 @@
 package com.example.pilgrim;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,6 +29,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutionException;
 
 public class login extends AppCompatActivity {
@@ -83,7 +85,7 @@ public class login extends AppCompatActivity {
                 try {
                     sId = login_ID.getText().toString();
                     sPw = login_password.getText().toString();
-                } catch (NullPointerException e){
+                } catch (NullPointerException ignored){
                 }
                 if (sId.equals(""))
                 {
@@ -93,12 +95,7 @@ public class login extends AppCompatActivity {
                 {
                     Toast.makeText(login.this, "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 }
-                else if (sPw.equals("") && sId.equals(""))
-                {
-                    Toast.makeText(login.this, "아이디를 입력해주세요.", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
+                else {
                     loginchk lDB = new loginchk();
                     lDB.execute();
 
@@ -137,8 +134,10 @@ public class login extends AppCompatActivity {
                 editor.remove("chk_id_pwd");
             }
             NameCallTask task = new NameCallTask(login_ID.getText().toString());
+
             try {
                 taskName = task.execute().get();
+
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
@@ -155,6 +154,7 @@ public class login extends AppCompatActivity {
         backPressCloseHandler.onBackPressed();//뒤로가기버튼
     }
 
+    @SuppressLint("StaticFieldLeak")
     class loginchk extends AsyncTask<Void, Integer, Void>
     {
 
@@ -179,22 +179,22 @@ public class login extends AppCompatActivity {
 
                 /* 안드로이드 -> 서버 파라메터값 전달 */
                 OutputStream outs = conn.getOutputStream();
-                outs.write(param.getBytes("UTF-8"));
+                outs.write(param.getBytes(StandardCharsets.UTF_8));
                 outs.flush();
                 outs.close();
 
                 /* 서버 -> 안드로이드 파라메터값 전달 */
-                InputStream is = null;
-                BufferedReader in = null;
+                InputStream is;
+                BufferedReader in;
 
 
                 is = conn.getInputStream();
                 in = new BufferedReader(new InputStreamReader(is), 8 * 1024);
-                String line = null;
-                StringBuffer buff = new StringBuffer();
+                String line;
+                StringBuilder buff = new StringBuilder();
                 while ((line = in.readLine()) != null)
                 {
-                    buff.append(line + "\n");
+                    buff.append(line).append("\n");
                 }
                 data = buff.toString().trim();
 
@@ -212,9 +212,6 @@ public class login extends AppCompatActivity {
 
                 }
 
-            } catch (MalformedURLException e)
-            {
-                e.printStackTrace();
             } catch (IOException e)
             {
                 e.printStackTrace();
@@ -239,9 +236,8 @@ public class login extends AppCompatActivity {
                 Toast.makeText(login.this, "비밀번호가 다릅니다.", Toast.LENGTH_SHORT).show();
             }
         }
-
-
     }
+
 
     public void dumpBtn(View v){
         Intent intent = new Intent(this,IdOkActivity.class);

@@ -49,7 +49,7 @@ public class RankchkTask extends AsyncTask<String,String,String> {
             InputStream is;
             BufferedReader in;
 
-
+            /* 불러들인 값을 읽어오는 것 */
             is = conn.getInputStream();
             in = new BufferedReader(new InputStreamReader(is), 8 * 1024);
             String line;
@@ -60,16 +60,6 @@ public class RankchkTask extends AsyncTask<String,String,String> {
             data = stringBuilder.toString().trim();
 
             /* 서버에서 응답 */
-
-
-            if (data != null) {
-                Log.e("RESULT", "성공적으로 처리되었습니다!");
-                //  return null;
-            } else {
-                Log.e("RESULT", "에러 발생! ERRCODE = " + data);
-
-            }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
