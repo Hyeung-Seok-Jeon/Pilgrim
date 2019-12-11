@@ -1,23 +1,16 @@
 package com.example.pilgrim.ui.home;
 
 import android.Manifest;
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.InputType;
-import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,12 +27,10 @@ import com.example.pilgrim.R;
 import com.example.pilgrim.SurveyEnter;
 
 import com.example.pilgrim.RankchkTask;
-import com.example.pilgrim.Survey;
 
 
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
-import java.util.prefs.Preferences;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -91,10 +82,8 @@ public class HomeFragment extends Fragment {
         ImageButton imgbtn_mannagerMode=root.findViewById(R.id.imgbtn_manager);
 
 
-        imgbtn_survey = root.findViewById(R.id.imgbtn_survey);
-        imgbtn_map = root.findViewById(R.id.imgbtn_map);
-        imgbtn_mannagerMode = root.findViewById(R.id.imgbtn_manager);
-        imgbtn_survey = root.findViewById(R.id.imgbtn_survey);
+
+
 
         imgbtn_survey.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +117,7 @@ public class HomeFragment extends Fragment {
                         Intent intent = new Intent(getContext(), ManagerMode.class);
                         startActivity(intent);
                     } else {
-                        Toast.makeText(gpsTracker, "관리자가 아닙니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "관리자가 아닙니다.", Toast.LENGTH_SHORT).show();
                     }
                 } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();

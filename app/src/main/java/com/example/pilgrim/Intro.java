@@ -34,14 +34,7 @@ public class Intro extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intro);
 
-        /**********************************************단말 id 체크 (FCM)*************************************************/
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this, new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult result) {
-                Log.d("FCM_TEST",result.getToken().toString());
-            }
-        });
-        /**********************************************단말 id 체크 (FCM)*************************************************/
+
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//정방향 세로로 완전히 고정,회전불가
         handler = new Handler();

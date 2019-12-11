@@ -8,7 +8,9 @@
         android:id="@+id/text_questions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:text="질문"
+        android:textColor="@color/colorPrimary"
         android:textSize="20dp" />
 
     <RadioGroup
@@ -20,30 +22,35 @@
             android:id="@+id/r_btn_choice1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:text="RadioButton" />
 
         <RadioButton
             android:id="@+id/r_btn_choice2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:text="RadioButton" />
 
         <RadioButton
             android:id="@+id/r_btn_choice3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:text="RadioButton" />
 
         <RadioButton
             android:id="@+id/r_btn_choice4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:text="RadioButton" />
 
         <RadioButton
             android:id="@+id/r_btn_choice5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:text="RadioButton" />
     </RadioGroup>
 </LinearLayout>
