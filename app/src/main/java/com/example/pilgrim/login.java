@@ -134,6 +134,7 @@ public class login extends AppCompatActivity {
                 editor.remove("pwd_save");
                 editor.remove("chk_id_pwd");
             }
+            editor.putString("ID",login_ID.getText().toString());
             editor.apply();
         }
 
