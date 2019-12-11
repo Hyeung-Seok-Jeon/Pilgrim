@@ -48,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="설명"
+
                 android:textSize="25dp"
                 android:textStyle="bold" />
 
@@ -79,6 +80,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="100dp"
                     android:layout_weight="1"
+                    android:background="@drawable/selector_btn_click"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp"
                     android:text="질문추가" />
 
                 <Button
@@ -86,6 +90,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="100dp"
                     android:layout_weight="1"
+                    android:background="@drawable/selector_btn_click"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp"
                     android:text="삭제" />
             </LinearLayout>
 
@@ -101,6 +108,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/selector_btn_click"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
                 android:text="설문 등록" />
 
         </LinearLayout>

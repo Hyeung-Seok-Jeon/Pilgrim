@@ -14,8 +14,10 @@ import android.provider.Settings;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.example.pilgrim.Intro;
 import com.example.pilgrim.R;
-import com.example.pilgrim.WorkService.SurveyActivity;
+import com.example.pilgrim.SurveyEnter;
+//import com.example.pilgrim.WorkService.SurveyActivity;
 
 public class NotiUtil extends Notification {
     Context context;
@@ -39,7 +41,7 @@ public class NotiUtil extends Notification {
 
     private void createNotification(Context context, String head, String body, Integer val) {
 
-        Intent showGoIntent = new Intent(context, SurveyActivity.class);
+        Intent showGoIntent = new Intent(context, Intro.class);
         PendingIntent showGoPendingIntent = PendingIntent.getActivity(context, 0, showGoIntent, 0);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default");

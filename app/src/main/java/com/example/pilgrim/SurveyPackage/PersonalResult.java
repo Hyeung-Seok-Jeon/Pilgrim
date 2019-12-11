@@ -31,7 +31,7 @@ import java.util.List;
 public class PersonalResult extends AppCompatActivity implements TextWatcher {
     List<PersonalRD>personalList=new ArrayList<>();
     private FirebaseDatabase database;
-    ResultAdapter resultAdapter;
+//    ResultAdapter resultAdapter;
     EditText edit_search;
 
     List<PersonalRD> Filteredlist;
@@ -42,8 +42,8 @@ public class PersonalResult extends AppCompatActivity implements TextWatcher {
 
         RecyclerView recyclerView=findViewById(R.id.recycler_personal);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        resultAdapter=new ResultAdapter();
-        recyclerView.setAdapter(resultAdapter);
+//        resultAdapter=new ResultAdapter();
+//        recyclerView.setAdapter(resultAdapter);
 
         edit_search=findViewById(R.id.edit_search);
         edit_search.addTextChangedListener(this);
@@ -56,11 +56,11 @@ public class PersonalResult extends AppCompatActivity implements TextWatcher {
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     PersonalRD personalRD = snapshot.getValue(PersonalRD.class);
                     personalList.add(personalRD);
-                    filteredList.add(personalRD.name);
+//                    filteredList.add(personalRD.name);
                 }
 
 
-                resultAdapter.notifyDataSetChanged();//새로고침
+//                resultAdapter.notifyDataSetChanged();//새로고침
             }
 
             @Override
@@ -77,7 +77,7 @@ public class PersonalResult extends AppCompatActivity implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-            resultAdapter.getFilter().filter(s);
+//            resultAdapter.getFilter().filter(s);
     }
 
     @Override
@@ -85,66 +85,66 @@ public class PersonalResult extends AppCompatActivity implements TextWatcher {
 
     }
 
-    class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder> implements Filterable {
+//    class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder> implements Filterable {
         RadioButton radioButton;
 
 
 
-        @NonNull
-        @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            Context context = parent.getContext();
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.personal_list, parent, false);
-            ResultAdapter.ViewHolder viewHolder = new ResultAdapter.ViewHolder(view);
-            return viewHolder;
-        }
+//        @NonNull
+//        @Override
+//        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//            Context context = parent.getContext();
+//            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//            View view = inflater.inflate(R.layout.personal_list, parent, false);
+//            ResultAdapter.ViewHolder viewHolder = new ResultAdapter.ViewHolder(view);
+//            return viewHolder;
+//        }
+//
+//        @Override
+//        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+////            holder.text_name.setText(personalList.get(position));
+//            holder.text_p_choice1.setText(personalList.get(position).my_choice1);
+//            holder.text_p_choice2.setText(personalList.get(position).my_choice2);
+//            holder.text_p_choice3.setText(personalList.get(position).my_choice3);
+//            holder.text_p_choice4.setText(personalList.get(position).my_choice4);
+//            holder.text_p_choice5.setText(personalList.get(position).my_choice5);
+//
+//
+//        }
+//
+//        @Override
+//        public int getItemCount() {
+//            return personalList.size();
+//        }
 
-        @Override
-        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            holder.text_name.setText(personalList.get(position));
-            holder.text_p_choice1.setText(personalList.get(position).my_choice1);
-            holder.text_p_choice2.setText(personalList.get(position).my_choice2);
-            holder.text_p_choice3.setText(personalList.get(position).my_choice3);
-            holder.text_p_choice4.setText(personalList.get(position).my_choice4);
-            holder.text_p_choice5.setText(personalList.get(position).my_choice5);
-
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return personalList.size();
-        }
-
-        @Override
-        public Filter getFilter() {
-            return new Filter() {
-                @Override
-                protected FilterResults performFiltering(CharSequence constraint) {
-                    String charString=constraint.toString();
-                    if(charString.isEmpty()){
-                        Filteredlist=personalList;
-                    }else{
-                        ArrayList<String> filteringList=new ArrayList<>();
-                        for(List<PersonalRD>:personalList){
-                            if(name.toLowerCase().contains(charString.toLowerCase()))
-                                filteringList.add(name);
-                        }
-                        filteredList=filteringList;
-                    }
-                    FilterResults filterResults=new FilterResults();
-                    filterResults.values=filteredList;
-                    return filterResults;
-                }
-
-                @Override
-                protected void publishResults(CharSequence constraint, FilterResults results) {
-                    filteredList=(ArrayList<String>)results.values;
-                    notifyDataSetChanged();
-                }
-            };
-        }
+//        @Override
+////        public Filter getFilter() {
+////            return new Filter() {
+////                @Override
+////                protected FilterResults performFiltering(CharSequence constraint) {
+////                    String charString=constraint.toString();
+////                    if(charString.isEmpty()){
+////                        Filteredlist=personalList;
+////                    }else{
+////                        ArrayList<String> filteringList=new ArrayList<>();
+////                        for(List<PersonalRD>:personalList){
+////                            if(name.toLowerCase().contains(charString.toLowerCase()))
+////                                filteringList.add(name);
+////                        }
+////                        filteredList=filteringList;
+////                    }
+////                    FilterResults filterResults=new FilterResults();
+////                    filterResults.values=filteredList;
+////                    return filterResults;
+////                }
+////
+////                @Override
+////                protected void publishResults(CharSequence constraint, FilterResults results) {
+////                    filteredList=(ArrayList<String>)results.values;
+////                    notifyDataSetChanged();
+////                }
+////            };
+////        }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             private TextView text_name,text_p_choice1,text_p_choice2,text_p_choice3,text_p_choice4,text_p_choice5;
@@ -164,4 +164,4 @@ public class PersonalResult extends AppCompatActivity implements TextWatcher {
 
 
     }
-}
+//}
