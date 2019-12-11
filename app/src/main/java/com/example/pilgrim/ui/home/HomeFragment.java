@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,7 +25,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.pilgrim.GpsTracker;
 import com.example.pilgrim.ManagerMode;
-import com.example.pilgrim.OpenApiParse.OpenApiParsingTask;
 import com.example.pilgrim.R;
 import com.example.pilgrim.Survey;
 
@@ -36,7 +34,6 @@ public class HomeFragment extends Fragment {
 
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_CODE = 100;
-
 
     public static boolean hasPermissions(Context context, String... permissions) {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
@@ -55,10 +52,6 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-
-        //미세먼지 확인하는 코드
-        new OpenApiParsingTask(root.getContext(), (TextView)root.findViewById(R.id.dustCheckText)).execute();
-
         String[] PERMISSIONS ={
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION,

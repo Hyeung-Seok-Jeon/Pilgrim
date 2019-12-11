@@ -1,9 +1,7 @@
 package com.example.pilgrim;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,34 +9,30 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-public class IDChk extends AsyncTask<Void, Integer, Void> {
+public class RankchkTask extends AsyncTask<String,String,String> {
+    private String chk_id;
 
-    String data = "";
-    private String idChk;
-    private String IpAddress;
-    private Context context;
-
-
-    public IDChk(String ID, String IP, Context context) {
-        this.idChk = ID;
-        this.IpAddress = IP;
-        this.context = context;
+    public RankchkTask() {
+        super();
     }
 
+    public RankchkTask(String id) {
+        this.chk_id = id;
+    }
 
     @Override
-    protected Void doInBackground(Void... voids) {
-
-        String param = "u_id=" + idChk + "";
+    protected String doInBackground(String... strings) {
+        String data = null;
+        String param = "u_id=" + chk_id + "";
         Log.e("POST", param);
         try {
             /* 서버연결 */
-            URL url = new URL(IpAddress);
-            Log.e("POST", IpAddress);
+            String ipAddress = "http://www.next-table.com/pilgrimproject/rank_check.php";
+            URL url = new URL(ipAddress);
+            Log.e("POST", ipAddress);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestMethod("POST");
@@ -76,23 +70,10 @@ public class IDChk extends AsyncTask<Void, Integer, Void> {
 
             }
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return null;
-    }
-
-    @Override
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
-        if (data.equals(idChk))
-            Toast.makeText(context, "아이디가 중복되었습니다.", Toast.LENGTH_SHORT).show();
-        else if(data.equals("0")){
-            Toast.makeText(context, "중복체크를 해주세요.", Toast.LENGTH_SHORT).show();
-        }else {
-            Toast.makeText(context, "아이디가 없습니다.", Toast.LENGTH_SHORT).show();
-        }
+        return data ;
     }
 }

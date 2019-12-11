@@ -12,9 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.ViewHolder> {
-    private ArrayList<SurveyData> data;
+    private List<SurveyData> data;
 
     public SurveyAdapter(ArrayList<SurveyData> data) {
         this.data=data;
@@ -34,6 +35,7 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.ViewHolder
             ans3 = itemView.findViewById(R.id.ans3);
             ans4 = itemView.findViewById(R.id.ans4);
             ans5 = itemView.findViewById(R.id.ans5);
+
 
         }
 
@@ -63,6 +65,7 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.ViewHolder
         holder.ans4.setText(surveyData.getSurveyMore(4));
         holder.ans5.setText(surveyData.getSurveyMore(5));
 
+
     }
 
 
@@ -71,11 +74,6 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.ViewHolder
         return data.size();
     }
 
-    void addDataset(ArrayList<SurveyData> survey){
-        this.data=survey;
-    }
-    void addData(SurveyData survey) {
-        data.add(survey);
-    }
+
 }
 

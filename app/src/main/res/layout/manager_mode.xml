@@ -40,6 +40,18 @@
         android:textSize="18sp"
         android:text="설문조사 작성" />
 
+    <Button
+        android:id="@+id/btn_p_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="결과보기(개개인)" />
+
+    <Button
+        android:id="@+id/btn_g_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="결과보기(그래프)" />
+
     <EditText
         android:id="@+id/edit_test"
         android:layout_width="match_parent"
