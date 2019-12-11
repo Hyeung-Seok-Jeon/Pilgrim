@@ -13,10 +13,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.pilgrim.OpenApiParse.OpenApiParsingTask;
 import com.example.pilgrim.WorkService.FcmSendPushTest;
 import com.example.pilgrim.WorkService.IdOkActivity;
 
@@ -252,5 +254,6 @@ public class login extends AppCompatActivity {
         Intent intent = new Intent(this, FcmSendPushTest.class);
         startActivity(intent);
     }
+
 
 }
