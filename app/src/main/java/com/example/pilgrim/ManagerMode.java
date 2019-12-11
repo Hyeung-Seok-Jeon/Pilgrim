@@ -1,6 +1,7 @@
 package com.example.pilgrim;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -46,6 +47,7 @@ public class ManagerMode extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
 
+    @SuppressLint("ObsoleteSdkInt")
     public static boolean hasPermissions(Context context, String... permissions) {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
             for (String permission : permissions) {
@@ -96,7 +98,7 @@ public class ManagerMode extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     uploadFile(imagePath);
-                }catch(NullPointerException e){
+                }catch(NullPointerException ignored){
 
                 }
             }
@@ -142,6 +144,7 @@ public class ManagerMode extends AppCompatActivity {
         String[] proj={MediaStore.Images.Media.DATA};
         CursorLoader cursorLoader=new CursorLoader(this,uri,proj,null,null,null);
         Cursor cursor=cursorLoader.loadInBackground();
+        assert cursor != null;
         int index=cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
         return cursor.getString(index);
@@ -196,7 +199,8 @@ public class ManagerMode extends AppCompatActivity {
             public void onComplete(@NonNull Task<Uri> task) {
                 Uri downloadUri=task.getResult();
                 ImageDTO imageDTO=new ImageDTO();
-               imageDTO.imageUrI=downloadUri.toString();
+                assert downloadUri != null;
+                imageDTO.imageUrI=downloadUri.toString();
                myRef.push().setValue(imageDTO);
 
             }

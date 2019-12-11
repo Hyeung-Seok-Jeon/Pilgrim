@@ -10,17 +10,21 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 
-public class SurveySyncTask extends AsyncTask<String, Void, String> {
-    private ArrayList<SurveyData> syncdataset = new ArrayList<>();
+public class NameCallTask extends AsyncTask<String,String,String> {
+
+    String idcall;
+    public NameCallTask(String string) {
+        this.idcall = string;
+    }
 
     @Override
-    protected String doInBackground(String... params) {
-        String postParameters = "dkdlrh";
+    protected String doInBackground(String... strings) {
+
+        String param = "u_id=" + idcall;
         try {
 
-            String serverURL = "http://www.next-table.com/pilgrimproject/call_survey.php";
+            String serverURL = "http://www.next-table.com/pilgrimproject/Name_call.php";
             URL url = new URL(serverURL);   // 만든 serverURL로 URL 객체를 생성
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();  //url을 토대로 http와 연결
             httpURLConnection.setReadTimeout(5000);
@@ -30,7 +34,7 @@ public class SurveySyncTask extends AsyncTask<String, Void, String> {
             String TAG = "디버그용";
             Log.d(TAG, "여기는 된다 오바! http 커넥션구역이다.");
             OutputStream outputStream = httpURLConnection.getOutputStream();  //데이터를 내보낼거기대문에 아웃풋스트림.
-            outputStream.write(postParameters.getBytes(StandardCharsets.UTF_8));
+            outputStream.write(param.getBytes(StandardCharsets.UTF_8));
             outputStream.flush();  //데이터를 밀어준다
             outputStream.close();  //다 보냈으면 끊어준다.
 
@@ -53,11 +57,7 @@ public class SurveySyncTask extends AsyncTask<String, Void, String> {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 sb.append(line);
-                String[] array = line.split("[/]");
-                Log.d(TAG, "doInBackground: "+array.length);
-                SurveyData data1 = new SurveyData();
-                data1.setSurvey(array);
-               syncdataset.add(data1);
+
             }
 
 
@@ -73,13 +73,4 @@ public class SurveySyncTask extends AsyncTask<String, Void, String> {
         return null;
     }
 
-
-
-
-    @Override
-    protected void onPostExecute(String result) {
-        super.onPostExecute(result);
-
-    }
 }
-
