@@ -1,6 +1,7 @@
 package com.example.pilgrim;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.loader.content.CursorLoader;
 
+import com.example.pilgrim.SurveyPackage.GraphResult;
+import com.example.pilgrim.SurveyPackage.PersonalResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -35,7 +38,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 
 public class ManagerMode extends AppCompatActivity {
-    Button btn_PictureChoice,btn_PictureUpload,btn_Notification,btn_Survey_Make;
+    Button btn_PictureChoice,btn_PictureUpload,btn_Notification,btn_Survey_Make,btn_personal_result,btn_graph_result;
     private String filename;
     private String imagePath;
     int GALLERY_CODE=0;
@@ -44,6 +47,7 @@ public class ManagerMode extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
 
+    @SuppressLint("ObsoleteSdkInt")
     public static boolean hasPermissions(Context context, String... permissions) {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
             for (String permission : permissions) {
@@ -73,10 +77,14 @@ public class ManagerMode extends AppCompatActivity {
             //권한요청
             ActivityCompat.requestPermissions(this, PERMISSIONS,1);
         }
+
         btn_PictureChoice=findViewById(R.id.btn_pictureChoice);
         btn_PictureUpload=findViewById(R.id.btn_gallleryUpdate);
         btn_Notification=findViewById(R.id.btn_manger_noti);
         btn_Survey_Make=findViewById(R.id.btn_survey_make);
+        btn_personal_result=findViewById(R.id.btn_p_result);
+        btn_graph_result=findViewById(R.id.btn_g_result);
+
         btn_PictureChoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +98,7 @@ public class ManagerMode extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     uploadFile(imagePath);
-                }catch(NullPointerException e){
+                }catch(NullPointerException ignored){
 
                 }
             }
@@ -110,6 +118,18 @@ public class ManagerMode extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btn_personal_result.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), PersonalResult.class));
+            }
+        });
+        btn_graph_result.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), GraphResult.class));
+            }
+        });
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -124,6 +144,7 @@ public class ManagerMode extends AppCompatActivity {
         String[] proj={MediaStore.Images.Media.DATA};
         CursorLoader cursorLoader=new CursorLoader(this,uri,proj,null,null,null);
         Cursor cursor=cursorLoader.loadInBackground();
+        assert cursor != null;
         int index=cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
         return cursor.getString(index);
@@ -178,7 +199,8 @@ public class ManagerMode extends AppCompatActivity {
             public void onComplete(@NonNull Task<Uri> task) {
                 Uri downloadUri=task.getResult();
                 ImageDTO imageDTO=new ImageDTO();
-               imageDTO.imageUrI=downloadUri.toString();
+                assert downloadUri != null;
+                imageDTO.imageUrI=downloadUri.toString();
                myRef.push().setValue(imageDTO);
 
             }

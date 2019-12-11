@@ -30,6 +30,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 public class login extends AppCompatActivity {
 
@@ -124,6 +125,7 @@ public class login extends AppCompatActivity {
    @Override
     protected void onStop() {
         super.onStop();
+       String taskName = null;
         if(login_success) {
             prefs = getSharedPreferences("PrefName", MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
@@ -136,6 +138,14 @@ public class login extends AppCompatActivity {
                 editor.remove("pwd_save");
                 editor.remove("chk_id_pwd");
             }
+            NameCallTask task = new NameCallTask(login_ID.getText().toString());
+            try {
+                taskName = task.execute().get();
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+            editor.putString("name",taskName);
+            editor.putString("ID",login_ID.getText().toString());
             editor.apply();
         }
 

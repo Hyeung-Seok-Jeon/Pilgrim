@@ -194,7 +194,7 @@ public class MemberShip extends AppCompatActivity {
 
                 StringBuilder sb = new StringBuilder();
                 Log.d(TAG,  sb+"가 생성되엇따!");
-                String line = null;
+                String line;
 
                 while((line = bufferedReader.readLine()) != null){
                     sb.append(line);
