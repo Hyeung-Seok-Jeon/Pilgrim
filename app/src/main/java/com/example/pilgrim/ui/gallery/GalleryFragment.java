@@ -38,6 +38,7 @@ public class GalleryFragment extends Fragment {
         final GalleryRecyclerViewAdapter galleryRecyclerViewAdapter=new GalleryRecyclerViewAdapter();
         recyclerView.setAdapter(galleryRecyclerViewAdapter);
 
+
         database.getReference("GalleryUris").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -63,11 +64,13 @@ public class GalleryFragment extends Fragment {
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_gallery,parent,false);
             return new CustomViewHolder(view);
+
         }
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             Glide.with(holder.itemView.getContext()).load(galleryListUri.get(position).imageUrI).into(((CustomViewHolder)holder).imageView);
+
         }
 
         @Override

@@ -21,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.loader.content.CursorLoader;
 
+import com.example.pilgrim.SurveyPackage.GraphResult;
+import com.example.pilgrim.SurveyPackage.PersonalResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,7 +38,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 
 public class ManagerMode extends AppCompatActivity {
-    Button btn_PictureChoice,btn_PictureUpload,btn_Notification,btn_Survey_Make;
+    Button btn_PictureChoice,btn_PictureUpload,btn_Notification,btn_Survey_Make,btn_personal_result,btn_graph_result;
     private String filename;
     private String imagePath;
     int GALLERY_CODE=0;
@@ -75,10 +77,14 @@ public class ManagerMode extends AppCompatActivity {
             //권한요청
             ActivityCompat.requestPermissions(this, PERMISSIONS,1);
         }
+
         btn_PictureChoice=findViewById(R.id.btn_pictureChoice);
         btn_PictureUpload=findViewById(R.id.btn_gallleryUpdate);
         btn_Notification=findViewById(R.id.btn_manger_noti);
         btn_Survey_Make=findViewById(R.id.btn_survey_make);
+        btn_personal_result=findViewById(R.id.btn_p_result);
+        btn_graph_result=findViewById(R.id.btn_g_result);
+
         btn_PictureChoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,6 +116,18 @@ public class ManagerMode extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(getApplicationContext(),SurveyRegister.class);
                 startActivity(intent);
+            }
+        });
+        btn_personal_result.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), PersonalResult.class));
+            }
+        });
+        btn_graph_result.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), GraphResult.class));
             }
         });
     }
