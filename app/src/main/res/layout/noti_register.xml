@@ -41,6 +41,9 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:background="@drawable/selector_btn_click"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
             android:text="공지등록" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,16 +5,24 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pilgrim.Listener_Event.OnTouch;
+import com.example.pilgrim.Timerpack.TimerHandler;
+import com.example.pilgrim.Timerpack.TimerThread;
+import com.example.pilgrim.UtilClass.MBoxFunUtil;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +37,7 @@ public class SurveyEnter extends AppCompatActivity {
     private List<QuestionRD> questionList = new ArrayList<>();
 
     private FirebaseDatabase database1, database2;
+    TimerThread timerThread;
 
     private DatabaseReference myRef;
     TextView txt_title,txt_explain;
@@ -54,6 +63,8 @@ public class SurveyEnter extends AppCompatActivity {
         txt_title=findViewById(R.id.sb_text_title);
         txt_explain=findViewById(R.id.sb_text_explain);
         btn_survey_complete=findViewById(R.id.btn_survey_complete);
+
+        onSurvey_Start();
 
         btn_survey_complete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +96,7 @@ public class SurveyEnter extends AppCompatActivity {
                 }
 
                 myRef.push().setValue(sbPersonalResult);
+                onSurvey_Enrollment();
             }
         });
 
@@ -188,7 +200,41 @@ public class SurveyEnter extends AppCompatActivity {
                 radioButton5 = view.findViewById(R.id.r_btn_choice5);
             }
         }
+    }
 
+    public void onSurvey_Enrollment() {
+        if (timerThread != null) {
+            timerThread.interrupt();
+            TextView timeResultText = findViewById(R.id.Time_OutputTextView_test);
+            ImageView clock_img = findViewById(R.id.watch_img_test);
+            Animation animation = AnimationUtils.loadAnimation(this, R.anim.effect_rotate_right);
+            clock_img.startAnimation(animation);
+            animation = AnimationUtils.loadAnimation(this, R.anim.effect_alpha_sparkle);
+            timeResultText.startAnimation(animation);
 
+            String parse_date = timeResultText.getText() + "";
+            String parsed_data[] = parse_date.split("[:]");
+            // 문자열 파싱
+            //        String parsed_date = parse_date.replaceAll("[^0-9]","");
+//        myApplication.setmTime(parsed_date[0]);
+//        myApplication.setsTime(parsed_date[1]);
+            timeResultText.setText(parsed_data[0] + "분," + parsed_data[1] + " 초");
+            new MBoxFunUtil(this, parsed_data);
+        } else {
+            Toast.makeText(this, "진행중인 설문조사가 없습니다.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void onSurvey_Start() {
+        ImageView clock_img = findViewById(R.id.watch_img_test);
+        Animation animation = new AnimationUtils().loadAnimation(this, R.anim.infinitewhile_scale_clock);
+        clock_img.startAnimation(animation);
+
+        TextView time_OutputTextView = findViewById(R.id.Time_OutputTextView_test);
+        time_OutputTextView.setOnTouchListener(new OnTouch(this));
+
+        TimerHandler timerHandler = new TimerHandler(time_OutputTextView);
+        timerThread = new TimerThread(timerHandler);
+        timerThread.start();
     }
 }

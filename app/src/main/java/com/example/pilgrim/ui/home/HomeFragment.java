@@ -73,14 +73,10 @@ public class HomeFragment extends Fragment {
         getSharedpr = Objects.requireNonNull(this.getContext()).getSharedPreferences("PrefName", MODE_PRIVATE);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-
         //미세먼지 확인하는 코드
         new OpenApiParsingTask(root.getContext(), (TextView)root.findViewById(R.id.dustCheckText)).execute();
 
-        String[] PERMISSIONS ={
-
         String[] PERMISSIONS = {
-
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
         };
@@ -95,9 +91,9 @@ public class HomeFragment extends Fragment {
         ImageButton imgbtn_mannagerMode=root.findViewById(R.id.imgbtn_manager);
 
 
-        ImageButton imgbtn_survey = root.findViewById(R.id.imgbtn_survey);
-        ImageButton imgbtn_map = root.findViewById(R.id.imgbtn_map);
-        final ImageButton imgbtn_mannagerMode = root.findViewById(R.id.imgbtn_manager);
+        imgbtn_survey = root.findViewById(R.id.imgbtn_survey);
+        imgbtn_map = root.findViewById(R.id.imgbtn_map);
+        imgbtn_mannagerMode = root.findViewById(R.id.imgbtn_manager);
         imgbtn_survey = root.findViewById(R.id.imgbtn_survey);
 
         imgbtn_survey.setOnClickListener(new View.OnClickListener() {

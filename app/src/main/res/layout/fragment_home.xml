@@ -10,10 +10,10 @@
     <TextView
         android:id="@+id/dustCheckText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="연수구의 미세먼지 ?? Clcik !!"
+        android:layout_height="28sp"
+        android:background="@drawable/dustback"
+        android:text="연수구의 미세먼지 ??"
         android:textAlignment="center"
-        android:background="@color/colorWhite"
         android:textSize="18sp" />
 
     <ScrollView
