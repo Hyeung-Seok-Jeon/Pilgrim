@@ -21,7 +21,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.loader.content.CursorLoader;
 
-import com.example.pilgrim.SurveyPackage.GraphResult;
 import com.example.pilgrim.SurveyPackage.PersonalResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -38,7 +37,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 
 public class ManagerMode extends AppCompatActivity {
-    Button btn_PictureChoice,btn_PictureUpload,btn_Notification,btn_Survey_Make,btn_personal_result,btn_graph_result;
+    Button btn_PictureChoice,btn_PictureUpload,btn_Notification,btn_Survey_Make,btn_personal_result;
     private String filename;
     private String imagePath;
     int GALLERY_CODE=0;
@@ -83,7 +82,7 @@ public class ManagerMode extends AppCompatActivity {
         btn_Notification=findViewById(R.id.btn_manger_noti);
         btn_Survey_Make=findViewById(R.id.btn_survey_make);
         btn_personal_result=findViewById(R.id.btn_p_result);
-        btn_graph_result=findViewById(R.id.btn_g_result);
+
 
         btn_PictureChoice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,12 +123,7 @@ public class ManagerMode extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), PersonalResult.class));
             }
         });
-        btn_graph_result.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), GraphResult.class));
-            }
-        });
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

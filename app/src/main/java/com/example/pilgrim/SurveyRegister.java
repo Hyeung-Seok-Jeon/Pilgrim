@@ -71,13 +71,13 @@ public class SurveyRegister extends AppCompatActivity {
         edit_title=findViewById(R.id.edit_survey_title);
         edit_explain=findViewById(R.id.edit_survey_explain);
         edit_question=findViewById(R.id.edit_question);
-//        btn_Question_add=findViewById(R.id.btn_question_add);
-        btn_Survey_Register=findViewById(R.id.btn_sur_register);
-//        edit_choice[0]=findViewById(R.id.edit_Q_choice);
-//        edit_choice[1]=findViewById(R.id.edit_Q_choice2);
-//        edit_choice[2]=findViewById(R.id.edit_Q_choice3);
-//        edit_choice[3]=findViewById(R.id.edit_Q_choice4);
-//        edit_choice[4]=findViewById(R.id.edit_Q_choice5);
+        btn_Question_add=findViewById(R.id.btn_add_questions);
+        btn_Survey_Register=findViewById(R.id.btn_survey_register);
+        edit_choice[0]=findViewById(R.id.edit_choice1);
+        edit_choice[1]=findViewById(R.id.edit_choice2);
+        edit_choice[2]=findViewById(R.id.edit_choice3);
+        edit_choice[3]=findViewById(R.id.edit_choice4);
+        edit_choice[4]=findViewById(R.id.edit_choice5);
         text_Questions.setText("질문"+text_count);
         btn_Question_add.setOnClickListener(new View.OnClickListener() {
             @Override

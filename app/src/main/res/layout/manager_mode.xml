@@ -27,9 +27,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/selector_btn_click"
+        android:text="공지 작성"
         android:textColor="@color/colorWhite"
-        android:textSize="18sp"
-        android:text="알림생성" />
+        android:textSize="20dp" />
 
     <Button
         android:id="@+id/btn_survey_make"
@@ -45,8 +45,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/selector_btn_click"
+        android:text="설문조사 결과"
         android:textColor="@color/colorWhite"
-        android:textSize="18sp"
-        android:text="결과보기(개개인)" />
+        android:textSize="18sp" />
 
 </LinearLayout>
