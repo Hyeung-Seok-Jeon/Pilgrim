@@ -1,6 +1,8 @@
 package com.example.pilgrim;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,19 +47,21 @@ public class SurveyEnter extends AppCompatActivity {
     private DatabaseReference myRef;
     TextView txt_title,txt_explain;
     Button btn_survey_complete;
-    String str="전형석";
+    String str="";
     SBPersonalResult sbPersonalResult;
     String[] choice=new String[5];
     int count=0;
-    String selected1;
+    SharedPreferences prefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.survey_enter);
-
+        prefs = getSharedPreferences("PrefName", Activity.MODE_PRIVATE);
 
         database1 = FirebaseDatabase.getInstance();
         myRef=database1.getReference("PersonalResult");
+        str=prefs.getString("name","");
         sbPersonalResult=new SBPersonalResult();
         sbPersonalResult.name=str;
 

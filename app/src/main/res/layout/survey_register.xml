@@ -28,6 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="제목"
+                android:textColor="@android:color/holo_red_dark"
                 android:textSize="25dp"
                 android:textStyle="bold" />
 
@@ -49,6 +50,7 @@
                 android:layout_weight="1"
                 android:text="설명"
 
+                android:textColor="@android:color/holo_red_dark"
                 android:textSize="25dp"
                 android:textStyle="bold" />
 
@@ -70,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="질문"
+                android:textColor="@color/design_default_color_primary_dark"
                 android:textSize="23dp"
                 android:textStyle="bold" />
 
@@ -90,6 +93,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="선택"
+                android:textColor="@android:color/holo_green_light"
+                android:textColorHighlight="@android:color/holo_green_light"
                 android:textSize="23dp"
                 android:textStyle="bold" />
 
@@ -110,6 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="선택"
+                android:textColor="@android:color/holo_green_light"
                 android:textSize="23dp"
                 android:textStyle="bold" />
 
@@ -130,6 +136,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="선택"
+                android:textColor="@android:color/holo_green_light"
                 android:textSize="23dp"
                 android:textStyle="bold" />
 
@@ -150,6 +157,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="선택"
+                android:textColor="@android:color/holo_green_light"
                 android:textSize="23dp"
                 android:textStyle="bold" />
 
@@ -170,6 +178,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="선택"
+                android:textColor="@android:color/holo_green_light"
                 android:textSize="23dp"
                 android:textStyle="bold" />
 
@@ -181,23 +190,34 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_add_questions"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="질문 추가" />
+                android:background="@drawable/loginbutton"
+                android:text="질문 추가"
+                android:textColor="@android:color/background_light"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btn_survey_register"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:background="@drawable/loginbutton"
+                android:text="설문 등록"
+                android:textColor="@android:color/background_light"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 

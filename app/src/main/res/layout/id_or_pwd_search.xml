@@ -8,8 +8,9 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="100dp"
         android:text="아이디 찾기"
+        android:textColor="@color/design_default_color_primary_dark"
         android:textSize="25dp"
         android:textStyle="bold" />
 
@@ -29,16 +30,19 @@
             android:layout_width="wrap_content"
             android:layout_height="48sp"
             android:layout_weight="1"
-            android:background="@drawable/selector_btn_click"
+            android:background="@drawable/loginbutton"
             android:padding="0sp"
             android:scaleType="centerCrop"
-            android:text="인증번호 받기" />
+            android:text="인증번호 받기"
+            android:textColor="@android:color/background_light"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <EditText
@@ -52,16 +56,19 @@
             android:layout_width="wrap_content"
             android:layout_height="48sp"
             android:layout_weight="1"
-            android:background="@drawable/selector_btn_click"
+            android:background="@drawable/loginbutton"
             android:padding="0sp"
             android:scaleType="centerCrop"
-            android:text="확인" />
+            android:text="확인"
+            android:textColor="@android:color/background_light"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/txt_code1"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        android:foregroundGravity="center" />
 
     <TextView
         android:id="@+id/textView7"
@@ -69,6 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="비밀번호 찾기"
+        android:textColor="@color/design_default_color_primary_dark"
         android:textSize="25dp"
         android:textStyle="bold" />
 
@@ -100,15 +108,18 @@
             android:layout_width="wrap_content"
             android:layout_height="48sp"
             android:layout_weight="1"
-            android:background="@drawable/selector_btn_click"
+            android:background="@drawable/loginbutton"
             android:padding="0sp"
             android:scaleType="centerCrop"
-            android:text="인증번호 받기" />
+            android:text="인증번호 받기"
+            android:textColor="@android:color/background_light"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <EditText
@@ -122,15 +133,18 @@
             android:layout_width="wrap_content"
             android:layout_height="48sp"
             android:layout_weight="1"
-            android:background="@drawable/selector_btn_click"
+            android:background="@drawable/loginbutton"
             android:padding="0sp"
             android:scaleType="centerCrop"
-            android:text="확인" />
+            android:text="확인"
+            android:textColor="@android:color/background_light"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/txt_code2"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        android:foregroundGravity="center" />
 
 </LinearLayout>
