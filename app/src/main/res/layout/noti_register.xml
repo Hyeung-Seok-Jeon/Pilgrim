@@ -19,8 +19,11 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/managermode_notiimage" />
+            android:layout_marginTop="40dp"
+            android:background="@drawable/managermode_notiimage"
+            android:gravity="center"
+            android:textColor="@color/design_default_color_primary_dark"
+            android:textSize="30dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -65,12 +68,13 @@
 
         <Button
             android:id="@+id/btn_noti_register"
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:background="@drawable/rtyrtyrty"
+            android:background="@drawable/qqwe"
             android:textColor="@color/colorWhite"
-            android:textSize="18sp" />
+            android:textSize="25dp"
+            android:textStyle="bold" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
