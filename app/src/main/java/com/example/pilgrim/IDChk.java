@@ -89,9 +89,8 @@ public class IDChk extends AsyncTask<Void, Integer, Void> {
         super.onPostExecute(aVoid);
         if (data.equals(idChk))
             Toast.makeText(context, "아이디가 중복되었습니다.", Toast.LENGTH_SHORT).show();
-        else if(data.equals("0")){
-            Toast.makeText(context, "중복체크를 해주세요.", Toast.LENGTH_SHORT).show();
-        }else {
+
+        else {
             Toast.makeText(context, "아이디가 없습니다.", Toast.LENGTH_SHORT).show();
         }
     }

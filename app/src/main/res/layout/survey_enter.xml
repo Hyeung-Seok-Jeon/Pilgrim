@@ -94,7 +94,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="500dp">
+            android:layout_height="600dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -251,7 +251,8 @@
                 <RadioGroup
                     android:id="@+id/radiogroup4"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp">
 
                     <RadioButton
                         android:id="@+id/rg4_radiobutton"
@@ -296,7 +297,8 @@
                 <RadioGroup
                     android:id="@+id/radiogroup5"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp">
 
                     <RadioButton
                         android:id="@+id/rg5_radiobutton"

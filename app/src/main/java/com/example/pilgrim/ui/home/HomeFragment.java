@@ -20,6 +20,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.pilgrim.GpsTracker;
+import com.example.pilgrim.ImageDTO;
 import com.example.pilgrim.ManagerMode;
 import com.example.pilgrim.OpenApiParse.OpenApiParsingTask;
 import com.example.pilgrim.R;
@@ -27,22 +28,31 @@ import com.example.pilgrim.R;
 import com.example.pilgrim.SurveyEnter;
 
 import com.example.pilgrim.RankchkTask;
+import com.example.pilgrim.mainNotiRD;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 import static android.content.Context.MODE_PRIVATE;
 
 public class HomeFragment extends Fragment {
-    private String managerPassword = "123456";
-    private GpsTracker gpsTracker;
+   private GpsTracker gpsTracker;
     private SharedPreferences getSharedpr;
-
+    private TextView title,body;
+    private FirebaseDatabase database;
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_CODE = 100;
-
-
+    private List<mainNotiRD> mainNotiRDS=new ArrayList<>();
+    mainNotiRD mainNotiRD;
     public static boolean hasPermissions(Context context, String... permissions) {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
             for (String permission : permissions) {
@@ -63,7 +73,34 @@ public class HomeFragment extends Fragment {
         getSharedpr= this.getContext().getSharedPreferences("PrefName", MODE_PRIVATE);
         getSharedpr = Objects.requireNonNull(this.getContext()).getSharedPreferences("PrefName", MODE_PRIVATE);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        title=root.findViewById(R.id.text_main_title);
+        body=root.findViewById(R.id.text_main_body);
 
+
+        /*database=FirebaseDatabase.getInstance();
+        database.getReference("main").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mainNotiRDS.clear();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    mainNotiRD mainNotiRD=snapshot.getValue(mainNotiRD.class);
+                    mainNotiRDS.add(mainNotiRD);
+                }
+                try {
+                    title.setText(mainNotiRDS.get(mainNotiRDS.size() - 1).title);
+                    body.setText(mainNotiRDS.get(mainNotiRDS.size() - 1).body);
+                }catch (NullPointerException e){
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });*/
         //미세먼지 확인하는 코드
         new OpenApiParsingTask(root.getContext(), (TextView)root.findViewById(R.id.dustCheckText)).execute();
 
