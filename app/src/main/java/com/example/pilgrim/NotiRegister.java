@@ -17,6 +17,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -31,6 +32,7 @@ import java.util.Map;
 public class NotiRegister extends AppCompatActivity {
     static RequestQueue requestQueue;
     FirebaseDatabase database;
+    DatabaseReference myRef;
     private List<TokenDTD> tokenList=new ArrayList<>();
     Button btn_noti_register;
     EditText edit_title,edit_message;
@@ -38,6 +40,8 @@ public class NotiRegister extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.noti_register);
+        database=FirebaseDatabase.getInstance();
+        myRef=database.getReference("main");
         database= FirebaseDatabase.getInstance();
         btn_noti_register=findViewById(R.id.btn_noti_register);
         edit_title=findViewById(R.id.edit_title);
@@ -45,6 +49,7 @@ public class NotiRegister extends AppCompatActivity {
         if (requestQueue == null) {
             requestQueue = Volley.newRequestQueue(getApplicationContext());
         }
+
         database.getReference("token").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -66,6 +71,10 @@ public class NotiRegister extends AppCompatActivity {
 
                 String title=edit_title.getText().toString();
                 String message=edit_message.getText().toString();
+                mainNotiRD mainNotiRD=new mainNotiRD();
+                mainNotiRD.title=title;
+                mainNotiRD.body=message;
+                myRef.setValue(mainNotiRD);
                 send(title,message);
             }
         });

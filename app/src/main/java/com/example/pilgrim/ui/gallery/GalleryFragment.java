@@ -24,18 +24,18 @@ import java.util.List;
 
 public class GalleryFragment extends Fragment {
 
-    private List<ImageDTO> galleryListUri=new ArrayList<>();
+    private List<ImageDTO> galleryListUri = new ArrayList<>();
     private FirebaseDatabase database;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_gallery3, container, false);
-        database=FirebaseDatabase.getInstance();
-        RecyclerView recyclerView=root.findViewById(R.id.recycierview);
+        database = FirebaseDatabase.getInstance();
+        RecyclerView recyclerView = root.findViewById(R.id.recycierview);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        final GalleryRecyclerViewAdapter galleryRecyclerViewAdapter=new GalleryRecyclerViewAdapter();
+        final GalleryRecyclerViewAdapter galleryRecyclerViewAdapter = new GalleryRecyclerViewAdapter();
         recyclerView.setAdapter(galleryRecyclerViewAdapter);
 
 
@@ -43,9 +43,9 @@ public class GalleryFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 galleryListUri.clear();
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    ImageDTO imageDTO=snapshot.getValue(ImageDTO.class);
-                     galleryListUri.add(imageDTO);
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    ImageDTO imageDTO = snapshot.getValue(ImageDTO.class);
+                    galleryListUri.add(imageDTO);
                 }
                 galleryRecyclerViewAdapter.notifyDataSetChanged();//새로고침
             }
@@ -55,21 +55,22 @@ public class GalleryFragment extends Fragment {
 
             }
         });
-            return root;
+        return root;
     }
-    class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+
+    class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_gallery,parent,false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_gallery, parent, false);
             return new CustomViewHolder(view);
 
         }
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            Glide.with(holder.itemView.getContext()).load(galleryListUri.get(position).imageUrI).into(((CustomViewHolder)holder).imageView);
+            Glide.with(holder.itemView.getContext()).load(galleryListUri.get(position).imageUrI).into(((CustomViewHolder) holder).imageView);
 
         }
 
@@ -77,15 +78,18 @@ public class GalleryFragment extends Fragment {
         public int getItemCount() {
             return galleryListUri.size();
         }
-        private class CustomViewHolder extends RecyclerView.ViewHolder{
+
+        private class CustomViewHolder extends RecyclerView.ViewHolder {
             private ImageView imageView;
-            public CustomViewHolder(View view){
+
+            public CustomViewHolder(View view) {
                 super(view);
-                imageView=view.findViewById(R.id.item_ImageView);
+                imageView = view.findViewById(R.id.item_ImageView);
 
             }
         }
     }
+}
     /*public class GalleryAdapter extends BaseAdapter {
         private Context mContext;
 
@@ -149,4 +153,4 @@ public class GalleryFragment extends Fragment {
 
             }
         });*/
-}
+
