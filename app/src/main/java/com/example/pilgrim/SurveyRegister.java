@@ -82,34 +82,41 @@ public class SurveyRegister extends AppCompatActivity {
         btn_Question_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                text_count++;
-                QuestionRD questionRD=new QuestionRD();
-                questionRD.question=edit_question.getText().toString();
-                questionRD.choice1= edit_choice[0].getText().toString();
-                questionRD.choice2= edit_choice[1].getText().toString();
-                questionRD.choice3= edit_choice[2].getText().toString();
-                questionRD.choice4= edit_choice[3].getText().toString();
-                questionRD.choice5= edit_choice[4].getText().toString();
-
-                databaseReference2.push().setValue(questionRD);
-                text_Questions.setText("질문"+text_count);
-                edit_question.setText("");
-                edit_choice[0].setText("");
-                edit_choice[1].setText("");
-                edit_choice[2].setText("");
-                edit_choice[3].setText("");
-                edit_choice[4].setText("");
-                Toast.makeText(SurveyRegister.this, "질문이 추가되었습니다.", Toast.LENGTH_SHORT).show();
+                    if(text_count>=6)
+                        Toast.makeText(SurveyRegister.this, "질문을 더 이상 추가 할수 없습니다.", Toast.LENGTH_SHORT).show();
+                    else{
+                         text_count++;
+                         QuestionRD questionRD = new QuestionRD();
+                         questionRD.question = edit_question.getText().toString();
+                         questionRD.choice1 = edit_choice[0].getText().toString();
+                         questionRD.choice2 = edit_choice[1].getText().toString();
+                         questionRD.choice3 = edit_choice[2].getText().toString();
+                         questionRD.choice4 = edit_choice[3].getText().toString();
+                         questionRD.choice5 = edit_choice[4].getText().toString();
+                         databaseReference2.push().setValue(questionRD);
+                         text_Questions.setText("질문" + text_count);
+                         edit_question.setText("");
+                         edit_choice[0].setText("");
+                         edit_choice[1].setText("");
+                         edit_choice[2].setText("");
+                         edit_choice[3].setText("");
+                         edit_choice[4].setText("");
+                         Toast.makeText(SurveyRegister.this, "질문이 추가되었습니다.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         btn_Survey_Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HeadRD headRD=new HeadRD();
-                headRD.title=edit_title.getText().toString();
-                headRD.explain=edit_explain.getText().toString();
-                databaseReference.push().setValue(headRD);
-                send("empty",edit_title.getText().toString());
+                if(text_count>=5) {
+                    HeadRD headRD = new HeadRD();
+                    headRD.title = edit_title.getText().toString();
+                    headRD.explain = edit_explain.getText().toString();
+                    databaseReference.push().setValue(headRD);
+                    send("empty", edit_title.getText().toString());
+                }else{
+                    Toast.makeText(SurveyRegister.this, "질문은 총 5개가 되어야 합니다.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

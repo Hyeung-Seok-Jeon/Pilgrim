@@ -178,17 +178,3 @@ public class HomeFragment extends Fragment {
                 AlertDialog alert = alt_bld.create();
 
                 alert.show();*/
-
-/*   final EditText editText=new EditText(getContext());
-                editText.setHint("비밀번호를 입력하세요");
-                editText.setLayoutParams(getResources().getDimension());
-                AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
-                dialog.setTitle("관리자 모드");
-                dialog.setIcon(R.drawable.gallery);
-                dialog.setView(editText);
-                dialog.setNegativeButton("닫기", null);
-                dialog.show();*/
-                /*Intent intent=new Intent(getContext(), ManagerMode.class);
-                startActivity(intent);*/
-
-//

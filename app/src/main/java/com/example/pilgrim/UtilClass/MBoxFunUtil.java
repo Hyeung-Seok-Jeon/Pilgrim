@@ -3,7 +3,10 @@ package com.example.pilgrim.UtilClass;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.widget.Toast;
+
+import com.example.pilgrim.MainActivity;
 
 public class MBoxFunUtil extends AlertDialog {
 
@@ -29,7 +32,8 @@ public class MBoxFunUtil extends AlertDialog {
         builder.setPositiveButton("확인",
                 new OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext(), "감사합니다.", Toast.LENGTH_LONG).show();
+                        Intent intent=new Intent(getContext(), MainActivity.class);
+                        getContext().startActivity(intent);
                     }
                 });
         builder.show();

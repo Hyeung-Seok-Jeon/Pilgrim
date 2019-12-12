@@ -9,41 +9,68 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/background_light"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/managermode_notiimage" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/managermode_title" />
+
+            <EditText
+                android:id="@+id/edit_title"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:textColor="@android:color/background_dark" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="공지사항" />
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/edit_title"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:hint="제목"
-            android:textColor="@android:color/background_dark" />
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/managerbody" />
 
-        <EditText
-            android:id="@+id/edit_body_text"
-            android:layout_width="300dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:hint="본문"
-            android:textColor="@android:color/background_dark" />
+            <EditText
+                android:id="@+id/edit_body_text"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:textColor="@android:color/background_dark" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/btn_noti_register"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_width="350dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
-            android:background="@drawable/selector_btn_click"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/rtyrtyrty"
             android:textColor="@color/colorWhite"
-            android:textSize="18sp"
-            android:text="공지등록" />
+            android:textSize="18sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
