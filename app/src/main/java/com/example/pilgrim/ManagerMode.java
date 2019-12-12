@@ -2,8 +2,10 @@ package com.example.pilgrim;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -13,7 +15,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -44,8 +49,8 @@ public class ManagerMode extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseStorage storage;
     private FirebaseDatabase database;
-    private DatabaseReference myRef;
-
+    private DatabaseReference myRef,myRef2;
+    private String deleteSurveyConfirm="삭제확인";
     @SuppressLint("ObsoleteSdkInt")
     public static boolean hasPermissions(Context context, String... permissions) {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
@@ -66,6 +71,7 @@ public class ManagerMode extends AppCompatActivity {
         auth=FirebaseAuth.getInstance();
         database=FirebaseDatabase.getInstance();
         myRef=database.getReference("GalleryUris");
+        myRef2=database.getReference("Question");
         storage=FirebaseStorage.getInstance();
         String[] PERMISSIONS ={
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -113,8 +119,39 @@ public class ManagerMode extends AppCompatActivity {
         btn_Survey_Make.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),SurveyRegister.class);
-                startActivity(intent);
+                final EditText et=new EditText(ManagerMode.this);
+                final FrameLayout container = new FrameLayout(ManagerMode.this);
+                FrameLayout.LayoutParams params = new  FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.leftMargin = getResources().getDimensionPixelSize(R.dimen.dialog_margin);
+                params.rightMargin = getResources().getDimensionPixelSize(R.dimen.dialog_margin);
+                et.setHint("\"삭제확인\" 입력");
+                et.setLayoutParams(params);
+                container.addView(et);
+                final AlertDialog.Builder alt_bld = new AlertDialog.Builder(ManagerMode.this,R.style.Theme_AppCompat_Light_Dialog);
+                alt_bld.setTitle("설문조사 확인").setMessage("이전 설문조사를 삭제하시겠습니까?").setIcon(R.drawable.managermodepwdicon).setCancelable(
+                        false).setView(container).setPositiveButton("확인",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                if (deleteSurveyConfirm.equals(et.getText().toString())){
+                                    Intent intent=new Intent(ManagerMode.this,SurveyRegister.class);
+                                    startActivity(intent);
+                                    myRef2.setValue(null);
+                                }else {
+                                    Toast.makeText(ManagerMode.this, "문장이 다릅니다.", Toast.LENGTH_SHORT).show();
+                                }
+
+
+                            }
+                        }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                AlertDialog alert = alt_bld.create();
+                alert.show();
+
             }
         });
         btn_personal_result.setOnClickListener(new View.OnClickListener() {

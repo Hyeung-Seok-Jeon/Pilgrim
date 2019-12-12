@@ -35,7 +35,10 @@ import java.util.List;
 public class SurveyEnter extends AppCompatActivity {
     private List<HeadRD> headList = new ArrayList<>();
     private List<QuestionRD> questionList = new ArrayList<>();
-
+    RadioGroup[] radioGroup=new RadioGroup[5];
+    RadioButton[] radioButton=new RadioButton[25];
+    RadioButton SelectedRadioButton;
+    TextView[] textView=new TextView[5];
     private FirebaseDatabase database1, database2;
     TimerThread timerThread;
 
@@ -46,24 +49,56 @@ public class SurveyEnter extends AppCompatActivity {
     SBPersonalResult sbPersonalResult;
     String[] choice=new String[5];
     int count=0;
+    String selected1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.survey_enter);
+
+
         database1 = FirebaseDatabase.getInstance();
         myRef=database1.getReference("PersonalResult");
         sbPersonalResult=new SBPersonalResult();
         sbPersonalResult.name=str;
 
-        RecyclerView recyclerView=findViewById(R.id.recycier_question);
+     /*   RecyclerView recyclerView=findViewById(R.id.recycier_question);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        final QuestionAdapter questionAdapter=new QuestionAdapter();
-        recyclerView.setAdapter(questionAdapter);
-
+       final QuestionAdapter questionAdapter=new QuestionAdapter();
+      recyclerView.setAdapter(questionAdapter);*/
+        findId();
         txt_title=findViewById(R.id.sb_text_title);
         txt_explain=findViewById(R.id.sb_text_explain);
         btn_survey_complete=findViewById(R.id.btn_survey_complete);
-
+        textView[0].setText("없음");
+        textView[1].setText("없음");
+        textView[2].setText("없음");
+        textView[3].setText("없음");
+        textView[4].setText("없음");
+        radioButton[0].setText("없음");
+        radioButton[1].setText("없음");
+        radioButton[2].setText("없음");
+        radioButton[3].setText("없음");
+        radioButton[4].setText("없음");
+        radioButton[5].setText("없음");
+        radioButton[6].setText("없음");
+        radioButton[7].setText("없음");
+        radioButton[8].setText("없음");
+        radioButton[9].setText("없음");
+        radioButton[10].setText("없음");
+        radioButton[11].setText("없음");
+        radioButton[12].setText("없음");
+        radioButton[13].setText("없음");
+        radioButton[14].setText("없음");
+        radioButton[15].setText("없음");
+        radioButton[16].setText("없음");
+        radioButton[17].setText("없음");
+        radioButton[18].setText("없음");
+        radioButton[19].setText("없음");
+        radioButton[20].setText("없음");
+        radioButton[21].setText("없음");
+        radioButton[22].setText("없음");
+        radioButton[23].setText("없음");
+        radioButton[24].setText("없음");
         onSurvey_Start();
 
         btn_survey_complete.setOnClickListener(new View.OnClickListener() {
@@ -72,31 +107,23 @@ public class SurveyEnter extends AppCompatActivity {
 
                 SBPersonalResult sbPersonalResult=new SBPersonalResult();
                 sbPersonalResult.name=str;
-                switch (count){
-                    case 1:sbPersonalResult.my_choice1=choice[0];
-                            break;
-                    case 2:sbPersonalResult.my_choice1=choice[0];
-                            sbPersonalResult.my_choice2=choice[1];
-                            break;
-                    case 3:sbPersonalResult.my_choice1=choice[0];
-                            sbPersonalResult.my_choice2=choice[1];
-                            sbPersonalResult.my_choice3=choice[2];
-                            break;
-                    case 4:sbPersonalResult.my_choice1=choice[0];
-                            sbPersonalResult.my_choice2=choice[1];
-                            sbPersonalResult.my_choice3=choice[2];
-                            sbPersonalResult.my_choice4=choice[3];
-                             break;
-                    case 5:sbPersonalResult.my_choice1=choice[0];
-                            sbPersonalResult.my_choice2=choice[1];
-                           sbPersonalResult.my_choice3=choice[2];
-                           sbPersonalResult.my_choice4=choice[3];
-                           sbPersonalResult.my_choice5=choice[4];
-                            break;
+                for(int i=0;i<choice.length;i++){
+                    if(choice[i]==null)
+                        count++;
                 }
-
-                myRef.push().setValue(sbPersonalResult);
-                onSurvey_Enrollment();
+                if(count==0) {
+                    sbPersonalResult.my_choice1 = choice[0];
+                    sbPersonalResult.my_choice2 = choice[1];
+                    sbPersonalResult.my_choice3 = choice[2];
+                    sbPersonalResult.my_choice4 = choice[3];
+                    sbPersonalResult.my_choice5 = choice[4];
+                    myRef.push().setValue(sbPersonalResult);
+                    onSurvey_Enrollment();
+                }
+                else{
+                    Toast.makeText(SurveyEnter.this, "입력하지 않은 질문이 있습니다.", Toast.LENGTH_SHORT).show();
+                    count=0;
+                }
             }
         });
 
@@ -132,7 +159,37 @@ public class SurveyEnter extends AppCompatActivity {
                     QuestionRD questionRD = snapshot.getValue(QuestionRD.class);
                     questionList.add(questionRD);
                 }
-                questionAdapter.notifyDataSetChanged();
+               // questionAdapter.notifyDataSetChanged();
+                textView[0].setText("1."+questionList.get(0).question);
+                textView[1].setText("2."+questionList.get(1).question);
+                textView[2].setText("3."+questionList.get(2).question);
+                textView[3].setText("4."+questionList.get(3).question);
+                textView[4].setText("5."+questionList.get(4).question);
+                radioButton[0].setText(questionList.get(0).choice1);
+                radioButton[1].setText(questionList.get(0).choice2);
+                radioButton[2].setText(questionList.get(0).choice3);
+                radioButton[3].setText(questionList.get(0).choice4);
+                radioButton[4].setText(questionList.get(0).choice5);
+                radioButton[5].setText(questionList.get(1).choice1);
+                radioButton[6].setText(questionList.get(1).choice2);
+                radioButton[7].setText(questionList.get(1).choice3);
+                radioButton[8].setText(questionList.get(1).choice4);
+                radioButton[9].setText(questionList.get(1).choice5);
+                radioButton[10].setText(questionList.get(2).choice1);
+                radioButton[11].setText(questionList.get(2).choice2);
+                radioButton[12].setText(questionList.get(2).choice3);
+                radioButton[13].setText(questionList.get(2).choice4);
+                radioButton[14].setText(questionList.get(2).choice5);
+                radioButton[15].setText(questionList.get(3).choice1);
+                radioButton[16].setText(questionList.get(3).choice2);
+                radioButton[17].setText(questionList.get(3).choice3);
+                radioButton[18].setText(questionList.get(3).choice4);
+                radioButton[19].setText(questionList.get(3).choice5);
+                radioButton[20].setText(questionList.get(4).choice1);
+                radioButton[21].setText(questionList.get(4).choice2);
+                radioButton[22].setText(questionList.get(4).choice3);
+                radioButton[23].setText(questionList.get(4).choice4);
+                radioButton[24].setText(questionList.get(4).choice5);
             }
 
             @Override
@@ -142,9 +199,48 @@ public class SurveyEnter extends AppCompatActivity {
             }
         });
 
+
+
+
+        radioGroup[0].setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                SelectedRadioButton=group.findViewById(checkedId);
+                choice[0]=SelectedRadioButton.getText().toString();
+            }
+        });
+        radioGroup[1].setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                SelectedRadioButton=group.findViewById(checkedId);
+                choice[1]=SelectedRadioButton.getText().toString();
+            }
+        });
+        radioGroup[2].setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                SelectedRadioButton=group.findViewById(checkedId);
+                choice[2]=SelectedRadioButton.getText().toString();
+            }
+        });
+        radioGroup[3].setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                SelectedRadioButton=group.findViewById(checkedId);
+                choice[3]=SelectedRadioButton.getText().toString();
+            }
+        });
+        radioGroup[4].setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                SelectedRadioButton=group.findViewById(checkedId);
+                choice[4]=SelectedRadioButton.getText().toString();
+            }
+        });
+
     }
 
-    class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHolder> {
+   /* class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHolder> {
         RadioButton radioButton;
 
         @NonNull
@@ -159,7 +255,7 @@ public class SurveyEnter extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
             holder.text_question.setText((position+1)+"."+questionList.get(position).question);
             holder.radioButton1.setText(questionList.get(position).choice1);
             holder.radioButton2.setText(questionList.get(position).choice2);
@@ -170,9 +266,11 @@ public class SurveyEnter extends AppCompatActivity {
             holder.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
-                        radioButton=group.findViewById(checkedId);
-                        choice[count]=radioButton.getText().toString();
-                        count++;
+                    radioButton=group.findViewById(checkedId);
+                    choice[count]=radioButton.getText().toString();
+                    count++;
+
+
 
                 }
             });
@@ -200,7 +298,7 @@ public class SurveyEnter extends AppCompatActivity {
                 radioButton5 = view.findViewById(R.id.r_btn_choice5);
             }
         }
-    }
+    }*/
 
     public void onSurvey_Enrollment() {
         if (timerThread != null) {
@@ -220,6 +318,7 @@ public class SurveyEnter extends AppCompatActivity {
 //        myApplication.setsTime(parsed_date[1]);
             timeResultText.setText(parsed_data[0] + "분," + parsed_data[1] + " 초");
             new MBoxFunUtil(this, parsed_data);
+
         } else {
             Toast.makeText(this, "진행중인 설문조사가 없습니다.", Toast.LENGTH_SHORT).show();
         }
@@ -236,5 +335,43 @@ public class SurveyEnter extends AppCompatActivity {
         TimerHandler timerHandler = new TimerHandler(time_OutputTextView);
         timerThread = new TimerThread(timerHandler);
         timerThread.start();
+    }
+    public void findId(){
+        textView[0]=findViewById(R.id.se_txt_question1);
+        textView[1]=findViewById(R.id.se_txt_question2);
+        textView[2]=findViewById(R.id.se_txt_question3);
+        textView[3]=findViewById(R.id.se_txt_question4);
+        textView[4]=findViewById(R.id.se_txt_question5);
+        radioGroup[0]=findViewById(R.id.radiogroup1);
+        radioGroup[1]=findViewById(R.id.radiogroup2);
+        radioGroup[2]=findViewById(R.id.radiogroup3);
+        radioGroup[3]=findViewById(R.id.radiogroup4);
+        radioGroup[4]=findViewById(R.id.radiogroup5);
+        radioButton[0]=findViewById(R.id.rg1_radiobutton);
+        radioButton[1]=findViewById(R.id.rg1_radiobutton2);
+        radioButton[2]=findViewById(R.id.rg1_radiobutton3);
+        radioButton[3]=findViewById(R.id.rg1_radiobutton4);
+        radioButton[4]=findViewById(R.id.rg1_radiobutton5);
+        radioButton[5]=findViewById(R.id.rg2_radiobutton);
+        radioButton[6]=findViewById(R.id.rg2_radiobutton2);
+        radioButton[7]=findViewById(R.id.rg2_radiobutton3);
+        radioButton[8]=findViewById(R.id.rg2_radiobutton4);
+        radioButton[9]=findViewById(R.id.rg2_radiobutton5);
+        radioButton[10]=findViewById(R.id.rg3_radiobutton);
+        radioButton[11]=findViewById(R.id.rg3_radiobutton2);
+        radioButton[12]=findViewById(R.id.rg3_radiobutton3);
+        radioButton[13]=findViewById(R.id.rg3_radiobutton4);
+        radioButton[14]=findViewById(R.id.rg3_radiobutton5);
+        radioButton[15]=findViewById(R.id.rg4_radiobutton);
+        radioButton[16]=findViewById(R.id.rg4_radiobutton2);
+        radioButton[17]=findViewById(R.id.rg4_radiobutton3);
+        radioButton[18]=findViewById(R.id.rg4_radiobutton4);
+        radioButton[19]=findViewById(R.id.rg4_radiobutton5);
+        radioButton[20]=findViewById(R.id.rg5_radiobutton);
+        radioButton[21]=findViewById(R.id.rg5_radiobutton2);
+        radioButton[22]=findViewById(R.id.rg5_radiobutton3);
+        radioButton[23]=findViewById(R.id.rg5_radiobutton4);
+        radioButton[24]=findViewById(R.id.rg5_radiobutton5);
+
     }
 }
