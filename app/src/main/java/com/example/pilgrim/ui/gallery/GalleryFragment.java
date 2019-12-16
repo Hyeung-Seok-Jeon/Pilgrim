@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.pilgrim.ImageDTO;
+import com.example.pilgrim.FirebaseRD_Data.ImageRD;
 import com.example.pilgrim.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,7 +24,7 @@ import java.util.List;
 
 public class GalleryFragment extends Fragment {
 
-    private List<ImageDTO> galleryListUri = new ArrayList<>();
+    private List<ImageRD> galleryListUri = new ArrayList<>();
     private FirebaseDatabase database;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -32,8 +32,8 @@ public class GalleryFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_gallery3, container, false);
         database = FirebaseDatabase.getInstance();
-        RecyclerView recyclerView = root.findViewById(R.id.recycierview);
 
+        RecyclerView recyclerView = root.findViewById(R.id.recycierview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         final GalleryRecyclerViewAdapter galleryRecyclerViewAdapter = new GalleryRecyclerViewAdapter();
         recyclerView.setAdapter(galleryRecyclerViewAdapter);
@@ -44,8 +44,8 @@ public class GalleryFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 galleryListUri.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    ImageDTO imageDTO = snapshot.getValue(ImageDTO.class);
-                    galleryListUri.add(imageDTO);
+                    ImageRD imageRD = snapshot.getValue(ImageRD.class);
+                    galleryListUri.add(imageRD);
                 }
                 galleryRecyclerViewAdapter.notifyDataSetChanged();//새로고침
             }

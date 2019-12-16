@@ -19,19 +19,13 @@ public class TimerThread extends Thread {
     public void run() {
         Bundle bundle = new Bundle();
         try {
-            T:
-            while (true) {
 
+            while (true) {
                 Thread.sleep(1000);
                 s++;
-
                 if (s >= 60) {
                     m++;
-                    s = 0;
-                }
-
-//                Log.d("Thread", m + ":" + s);
-
+                    s = 0; }
                 Message message = timerHandler.obtainMessage();
                 bundle.putInt("sec", s);
                 bundle.putInt("min", m);

@@ -15,6 +15,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.pilgrim.FirebaseRD_Data.TokenRD;
+import com.example.pilgrim.FirebaseRD_Data.mainNotiRD;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +35,7 @@ public class NotiRegister extends AppCompatActivity {
     static RequestQueue requestQueue;
     FirebaseDatabase database;
     DatabaseReference myRef;
-    private List<TokenDTD> tokenList=new ArrayList<>();
+    private List<TokenRD> tokenList=new ArrayList<>();
     Button btn_noti_register;
     EditText edit_title,edit_message;
     @Override
@@ -55,7 +57,7 @@ public class NotiRegister extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 tokenList.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    TokenDTD tokenRD=snapshot.getValue(TokenDTD.class);
+                    TokenRD tokenRD=snapshot.getValue(TokenRD.class);
                     tokenList.add(tokenRD);
                 }
             }
@@ -74,7 +76,7 @@ public class NotiRegister extends AppCompatActivity {
                 mainNotiRD mainNotiRD=new mainNotiRD();
                 mainNotiRD.title=title;
                 mainNotiRD.body=message;
-                myRef.setValue(mainNotiRD);
+                myRef.push().setValue(mainNotiRD);
                 send(title,message);
             }
         });

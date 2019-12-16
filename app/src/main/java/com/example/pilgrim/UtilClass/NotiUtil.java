@@ -58,6 +58,7 @@ public class NotiUtil extends Notification {
             builder.setContentTitle("" + head.toString()); //"알림 제목"
         }
 
+
         builder.setContentText(body); //"알람 세부 텍스트"
         builder.setColor(Color.RED);
         builder.setAutoCancel(true);

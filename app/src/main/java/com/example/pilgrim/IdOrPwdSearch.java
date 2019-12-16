@@ -28,7 +28,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class IdOrPwdSearch extends AppCompatActivity {
+public class
+IdOrPwdSearch extends AppCompatActivity {
     public EditText IdShPhone,PwdShId,PwdShPhone,edit_code_enter,edit_code_enter2;
     public Button btn_idCode,btn_pwdCode,btn_check1,btn_check2;
     String sPhone,sId, saveData,S_certificationCode;
@@ -221,6 +222,7 @@ public class IdOrPwdSearch extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+
             if(data.equals("false")){
                 if(distinction==1)
                     Toast.makeText(getApplication(), "없는 번호입니다", Toast.LENGTH_SHORT).show();
@@ -229,15 +231,15 @@ public class IdOrPwdSearch extends AppCompatActivity {
 
 
             }else{
-                certificationCode=(int)(Math.random()*999999)+100000;
+                certificationCode=(int)(Math.random()*999999+100000);
                 S_certificationCode=String.valueOf(certificationCode);
                 saveData=data;
                 String P_certificationCode=String.valueOf(certificationCode);
                 SmsManager mSmsManager=SmsManager.getDefault();
                 if(distinction==1)
-                    mSmsManager.sendTextMessage(sPhone,"","인증번호는 "+certificationCode+"입니다.",null,null);
+                    mSmsManager.sendTextMessage(sPhone,"","인증번호는 "+P_certificationCode+"입니다.",null,null);
                 else
-                    mSmsManager.sendTextMessage(sPhone,"","인증번호는 "+certificationCode+"입니다.",null,null);
+                    mSmsManager.sendTextMessage(sPhone,"","인증번호는 "+P_certificationCode+"입니다.",null,null);
             }
         }
 

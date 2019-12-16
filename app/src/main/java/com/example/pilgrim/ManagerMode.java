@@ -26,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.loader.content.CursorLoader;
 
+import com.example.pilgrim.FirebaseRD_Data.ImageRD;
 import com.example.pilgrim.SurveyPackage.PersonalResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -229,10 +230,10 @@ public class ManagerMode extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
                 Uri downloadUri=task.getResult();
-                ImageDTO imageDTO=new ImageDTO();
+                ImageRD imageRD =new ImageRD();
                 assert downloadUri != null;
-                imageDTO.imageUrI=downloadUri.toString();
-               myRef.push().setValue(imageDTO);
+                imageRD.imageUrI=downloadUri.toString();
+               myRef.push().setValue(imageRD);
 
             }
         }).addOnFailureListener(new OnFailureListener() {

@@ -48,7 +48,7 @@ public class MemberShip extends AppCompatActivity {
 
 
         btn_join.setEnabled(false);
-        btn_join.setAlpha(0.7f);
+
 
         //비밀번호 암호화
 
@@ -138,7 +138,6 @@ public class MemberShip extends AppCompatActivity {
     {
 
         ProgressDialog progressDialog;
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -157,8 +156,6 @@ public class MemberShip extends AppCompatActivity {
             }
             Log.d(TAG, "POST response  - " + result);
         }
-
-
         @Override
         protected String doInBackground(String... params) {
 
@@ -168,8 +165,6 @@ public class MemberShip extends AppCompatActivity {
             String phone = params[4];
             String Birth = params[5];
             String gender = params[6];
-
-
             String serverURL = params[0];       //param의 0번째는 주소를 넣어준다.
             String postParameters = "name=" + name + "&id=" + id + "&pword=" + pword + "&phone=" + phone + "&birth=" + Birth + "&gender=" + gender;
             //Log.d(TAG, ">>"+postParameters);
@@ -187,38 +182,25 @@ public class MemberShip extends AppCompatActivity {
                 outputStream.write(postParameters.getBytes("UTF-8"));
                 outputStream.flush();  //데이터를 밀어준다
                 outputStream.close();  //다 보냈으면 끊어준다.
-
-
                 int responseStatusCode = httpURLConnection.getResponseCode();
-
-
                 InputStream inputStream;
                 if(responseStatusCode == HttpURLConnection.HTTP_OK) {
                     inputStream = httpURLConnection.getInputStream();
-
                 }
                 else{
                     inputStream = httpURLConnection.getErrorStream();
-
                 }
 
 
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
                 StringBuilder sb = new StringBuilder();
-                Log.d(TAG,  sb+"가 생성되엇따!");
                 String line;
 
                 while((line = bufferedReader.readLine()) != null){
                     sb.append(line);
-                    Log.d(TAG, sb+"에 라인이 추가되었따 오바!");
                 }
-
-
                 bufferedReader.close();
-
-
                 return sb.toString();
 
 

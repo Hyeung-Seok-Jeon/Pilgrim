@@ -15,7 +15,16 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.pilgrim.FirebaseRD_Data.TokenRD;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,22 +45,43 @@ public class login extends AppCompatActivity {
     CheckBox id_pwd_save_check;
     SharedPreferences prefs;
     boolean login_success=false;
+    FirebaseInstanceId firebaseInstanceId;
+    private DatabaseReference databaseReference;
+    private FirebaseDatabase database_token;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//정방향 세로로 완전히 고정,회전불가
-        prefs = getSharedPreferences("PrefName", Activity.MODE_PRIVATE);
+
+        database_token= FirebaseDatabase.getInstance();
+        databaseReference=database_token.getReference("token");
+        firebaseInstanceId= FirebaseInstanceId.getInstance();
+        //로그인 Activity 가 실행되면 토큰 값을 데이터베이스에 넣는다.
+        firebaseInstanceId.getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+            @Override
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                if (!task.isSuccessful()) {
+                    Log.w("FIREBASE", "getInstanceId failed", task.getException());
+                    return;
+                }
+                TokenRD tokenRD =new TokenRD();
+                tokenRD.token= task.getResult().getToken();
+                databaseReference.push().setValue(tokenRD);
+            }
+
+        });
         //로그인 패스워드 암호화
         login_password = (EditText) findViewById(R.id.edit_login_pd);
         login_password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         login_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
         btn_login = (Button) findViewById(R.id.btn_login);
         login_ID = (EditText) findViewById(R.id.edit_login_id);
+        id_pwd_save_check=findViewById(R.id.idandpwdsave);
         btn_membership = (Button) findViewById(R.id.btn_membership);
 
-        id_pwd_save_check=findViewById(R.id.idandpwdsave);
+        prefs = getSharedPreferences("PrefName", Activity.MODE_PRIVATE);
         save_id=prefs.getString("id_save","");
         save_pwd=prefs.getString("pwd_save","");
         boolean check=prefs.getBoolean("chk_id_pwd",false);
@@ -60,6 +90,7 @@ public class login extends AppCompatActivity {
             login_password.setText(save_pwd);
             id_pwd_save_check.setChecked(true);
         }
+
         btn_membership.setOnClickListener(new View.OnClickListener()
         {
             @Override
