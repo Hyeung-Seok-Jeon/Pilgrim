@@ -25,6 +25,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 public class MemberShip extends AppCompatActivity {
     private static String IP_ADDRESS = "www.next-table.com";
@@ -46,7 +47,8 @@ public class MemberShip extends AppCompatActivity {
         findId();
 
 
-
+        btn_join.setEnabled(false);
+        btn_join.setAlpha(0.7f);
 
         //비밀번호 암호화
 
@@ -75,14 +77,26 @@ public class MemberShip extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String id = m_edit_id.getText().toString();
-                if(id!=null) {
+                String id = m_edit_id.getText().toString().trim();
+
+                if(!id.equals("")) {
                     IDChk idChk = new IDChk(id, "http://" + IP_ADDRESS + "/pilgrimproject/idChk.php", MemberShip.this);
                     idChk.execute();
-                    Not_seleted="select";
-                }else
+                    try {
+                        Log.d(TAG, "onClick: "+idChk.get());
+                        if("0".equals(idChk.get())){
+                            btn_join.setEnabled(true);
+                        Not_seleted="select";
+                        } else if(idChk.get().equals(id)) {
+                            btn_join.setEnabled(false);
+                        }
+                    } catch (ExecutionException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }else {
                     Toast.makeText(MemberShip.this, "아이디를 입력하세요", Toast.LENGTH_SHORT).show();
-
+                    btn_join.setEnabled(false);
+                }
             }
         });
 

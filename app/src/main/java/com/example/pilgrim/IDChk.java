@@ -15,7 +15,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-public class IDChk extends AsyncTask<Void, Integer, Void> {
+public class IDChk extends AsyncTask<String, String, String> {
 
     String data = "";
     private String idChk;
@@ -31,7 +31,7 @@ public class IDChk extends AsyncTask<Void, Integer, Void> {
 
 
     @Override
-    protected Void doInBackground(Void... voids) {
+    protected String doInBackground(String... String) {
 
         String param = "u_id=" + idChk + "";
         Log.e("POST", param);
@@ -61,7 +61,7 @@ public class IDChk extends AsyncTask<Void, Integer, Void> {
             String line;
             StringBuilder stringBuilder = new StringBuilder();
             while ((line = in.readLine()) != null) {
-                stringBuilder.append(line + "\n");
+                stringBuilder.append(line);
             }
             data = stringBuilder.toString().trim();
 
@@ -81,17 +81,20 @@ public class IDChk extends AsyncTask<Void, Integer, Void> {
             e.printStackTrace();
         }
 
-        return null;
+        return data;
     }
 
     @Override
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
+    protected void onPostExecute(String result) {
+        super.onPostExecute(result);
+
         if (data.equals(idChk))
             Toast.makeText(context, "아이디가 중복되었습니다.", Toast.LENGTH_SHORT).show();
 
+
         else {
             Toast.makeText(context, "아이디가 없습니다.", Toast.LENGTH_SHORT).show();
+
         }
     }
 }
