@@ -17,6 +17,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.pilgrim.FirebaseRD_Data.HeadRD;
+import com.example.pilgrim.FirebaseRD_Data.QuestionRD;
+import com.example.pilgrim.FirebaseRD_Data.TokenRD;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,7 +41,7 @@ public class SurveyRegister extends AppCompatActivity {
     EditText[] edit_choice=new EditText[5];
     TextView text_Questions;
     FirebaseDatabase database;
-    private List<TokenDTD> tokenList=new ArrayList<>();
+    private List<TokenRD> tokenList=new ArrayList<>();
     private DatabaseReference databaseReference,databaseReference2;
     int text_count=1;
     static RequestQueue requestQueue;
@@ -57,7 +60,7 @@ public class SurveyRegister extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 tokenList.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    TokenDTD tokenRD=snapshot.getValue(TokenDTD.class);
+                    TokenRD tokenRD=snapshot.getValue(TokenRD.class);
                     tokenList.add(tokenRD);
                 }
             }
@@ -114,6 +117,7 @@ public class SurveyRegister extends AppCompatActivity {
                     headRD.explain = edit_explain.getText().toString();
                     databaseReference.push().setValue(headRD);
                     send("empty", edit_title.getText().toString());
+                    Toast.makeText(SurveyRegister.this, "설문조사가 등록되었습니다.", Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(SurveyRegister.this, "질문은 총 5개가 되어야 합니다.", Toast.LENGTH_SHORT).show();
                 }

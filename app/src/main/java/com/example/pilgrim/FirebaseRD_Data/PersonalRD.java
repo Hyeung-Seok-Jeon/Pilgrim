@@ -1,4 +1,4 @@
-package com.example.pilgrim;
+package com.example.pilgrim.FirebaseRD_Data;
 
 public class PersonalRD {
     public String name;

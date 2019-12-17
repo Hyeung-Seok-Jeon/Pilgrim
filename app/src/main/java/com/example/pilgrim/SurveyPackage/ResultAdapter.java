@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.pilgrim.PersonalRD;
+import com.example.pilgrim.FirebaseRD_Data.PersonalRD;
 import com.example.pilgrim.R;
 
 import java.util.ArrayList;

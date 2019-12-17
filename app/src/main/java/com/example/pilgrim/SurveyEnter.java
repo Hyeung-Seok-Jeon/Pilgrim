@@ -1,12 +1,9 @@
 package com.example.pilgrim;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -18,9 +15,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pilgrim.FirebaseRD_Data.HeadRD;
+import com.example.pilgrim.FirebaseRD_Data.QuestionRD;
 import com.example.pilgrim.Listener_Event.OnTouch;
 import com.example.pilgrim.Timerpack.TimerHandler;
 import com.example.pilgrim.Timerpack.TimerThread;

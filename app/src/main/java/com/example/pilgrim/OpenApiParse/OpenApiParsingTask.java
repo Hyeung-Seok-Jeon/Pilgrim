@@ -86,7 +86,7 @@ public class OpenApiParsingTask extends AsyncTask<String, Void, String> {
             dustLevel = "매우나쁨";
         }
 
-        textView.setText("미세먼지수치 : " + str[2] + " 수준 : " + dustLevel);
+        textView.setText("연수구 미세먼지수치 : " + str[2] + " 수준 : " + dustLevel);
         Toast.makeText(context, "미세먼지 수치는 부정확할 수 있음\n" +
                 "기준 - " + str[0] + " : " + str[1] + "\n" + "           정보제공 : 에어코리아 ", Toast.LENGTH_SHORT).show();
     }

@@ -33,35 +33,10 @@ public class Intro extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intro);
-
-
-
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//정방향 세로로 완전히 고정,회전불가
         handler = new Handler();
         handler.postDelayed(runnable, 1500);
     }
-
-//    @Override
-//    protected void onRestart()
-//    {
-//        super.onRestart();
-//        setContentView(R.layout.intro);
-//        ImageView move = (ImageView) findViewById(R.id.imageView);
-//        Glide.with(this).load(R.drawable.pensumove).into(move);
-//        handler = new Handler();
-//        handler.postDelayed(runnable, 1000);
-//    }
-//
-//    @Override
-//    protected void onResume()
-//    {
-//        super.onResume();
-//        setContentView(R.layout.intro);
-//        ImageView move = (ImageView) findViewById(R.id.imageView);
-//        Glide.with(this).load(R.drawable.pensumove).into(move);
-//        handler = new Handler();
-//        handler.postDelayed(runnable, 1000);
-//    }
 
     @Override
     public void onBackPressed()
